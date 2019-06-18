@@ -11,12 +11,6 @@ const CHARACTER_TYPE = "Character";
 const EPISODE_TYPE = "Episode";
 
 const typeDefs = gql`
-  interface Node {
-    id: ID!
-  }
-
-  union Node = Character | Episode
-
   type PageInfo {
     # https://facebook.github.io/relay/graphql/connections.htm#sec-undefined.PageInfo.Fields
     hasNextPage: Boolean!
@@ -36,7 +30,7 @@ const typeDefs = gql`
     edges: [CharacterEdge]
   }
 
-  type Character implements Node {
+  type Character {
     id: ID!
     name: String
     status: String
@@ -50,8 +44,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    # TODO: add node field
-    # TODO: add charactersConnection field
+    # TODO: add a node field
+    # TODO: add a charactersConnection field
     character(id: Int): Character
     episodes: [Episode]
     episode(id: Int): Episode
@@ -60,12 +54,19 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    charactersConnection: async (_, args) => {
-      // give this to students
-      // const pageInfo = {};
-      // const edges = [];
-    },
-    node: (_, args) => null, // TODO
+    // You can use the following commented out code to implement the charactersConnection resolver
+    // charactersConnection: async (_, args) => {
+    //   const pageInfo = {};
+    //   const edges = [];
+
+    //   return {
+    //     pageInfo,
+    //     edges
+    //   };
+    // },
+
+    // You can use the following commented out code to implement the node resolver
+    // node: (_, args) => null,
     character: (_, args) => fetchCharacterById(args.id),
     episodes: () => fetchEpisodes(),
     episode: (_, args) => fetchEpisodeById(args.id)
@@ -82,9 +83,6 @@ const resolvers = {
       const characterEpisodes = parent.episode || [];
       return characterEpisodes.map(fetchEpisodeByUrl);
     }
-  },
-  Node: {
-    // TODO
   }
 };
 
