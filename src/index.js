@@ -44,8 +44,9 @@ const typeDefs = gql`
   }
 
   type Query {
-    # TODO: add a node field
-    # TODO: add a charactersConnection field
+    # TODO 2.3: add a node field
+    # TODO 4.1: add a charactersConnection field
+    characters: [Character]
     character(id: Int): Character
     episodes: [Episode]
     episode(id: Int): Episode
@@ -54,7 +55,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    // You can use the following commented out code to implement the charactersConnection resolver
+    // TODO 4.2: You can use the following commented out code to implement the charactersConnection resolver
     // charactersConnection: async (_, args) => {
     //   const pageInfo = {};
     //   const edges = [];
@@ -65,8 +66,9 @@ const resolvers = {
     //   };
     // },
 
-    // You can use the following commented out code to implement the node resolver
+    // TODO 2.4: You can use the following commented out code to implement the node resolver
     // node: (_, args) => null,
+    characters: () => fetchCharacters(),
     character: (_, args) => fetchCharacterById(args.id),
     episodes: () => fetchEpisodes(),
     episode: (_, args) => fetchEpisodeById(args.id)
@@ -78,6 +80,7 @@ const resolvers = {
     }
   },
   Character: {
+    // TODO 2.5
     id: parent => parent.id, // override the id field to return a global id for the Character type
     episodes: parent => {
       const characterEpisodes = parent.episode || [];
@@ -122,6 +125,12 @@ function fetchCharactersData() {
   return fetch("https://rickandmortyapi.com/api/character/").then(res =>
     res.json()
   );
+}
+
+function fetchCharacters() {
+  return fetch("https://rickandmortyapi.com/api/character/")
+    .then(res => res.json())
+    .then(json => json.results);
 }
 
 function fetchCharacterById(id) {
