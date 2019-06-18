@@ -11,10 +11,9 @@ const CHARACTER_TYPE = "Character";
 const EPISODE_TYPE = "Episode";
 
 const typeDefs = gql`
-  # do I need this?
-  # interface Node {
-  #   id: ID!
-  # }
+  interface Node {
+    id: ID!
+  }
 
   union Node = Character | Episode
 
@@ -37,8 +36,8 @@ const typeDefs = gql`
     edges: [CharacterEdge]
   }
 
-  type Character {
-    id: ID
+  type Character implements Node {
+    id: ID!
     name: String
     status: String
     episodes: [Episode]
@@ -51,13 +50,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    node(id: String!): Node
-    charactersConnection(
-      first: Int
-      after: String
-      last: Int
-      before: String
-    ): CharactersConnection
+    # TODO: add node field
+    # TODO: add charactersConnection field
     character(id: Int): Character
     episodes: [Episode]
     episode(id: Int): Episode
@@ -70,28 +64,8 @@ const resolvers = {
       // give this to students
       // const pageInfo = {};
       // const edges = [];
-      // solution first part
-      // const characters = await fetchCharactersData();
-      // const pageInfo = {
-      //   hasNextPage: characters.info.next,
-      //   hasPreviousPage: characters.info.prev,
-      //   totalCount: characters.info.count
-      // };
-      // const edges = characters.results.map(node => ({
-      //   node,
-      //   cursor: "" // current page + id + next page
-      // }));
-      // return { edges, pageInfo };
-      const characters = connectionFromArray(mockedCharacters, args);
-      return {
-        ...characters,
-        pageInfo: {
-          ...characters.pageInfo,
-          totalCount: mockedCharacters.length
-        }
-      };
     },
-    node: (_, { id }) => getObjectById(fromGlobalId(id)),
+    node: (_, args) => null, // TODO
     character: (_, args) => fetchCharacterById(args.id),
     episodes: () => fetchEpisodes(),
     episode: (_, args) => fetchEpisodeById(args.id)
@@ -103,23 +77,14 @@ const resolvers = {
     }
   },
   Character: {
-    id: parent => toGlobalId(CHARACTER_TYPE, parent.id),
+    id: parent => parent.id, // TODO
     episodes: parent => {
       const characterEpisodes = parent.episode || [];
       return characterEpisodes.map(fetchEpisodeByUrl);
     }
   },
   Node: {
-    __resolveType(obj) {
-      if (obj.episode) {
-        return CHARACTER_TYPE;
-      }
-      if (obj.character) {
-        return EPISODE_TYPE;
-      }
-
-      return null;
-    }
+    // TODO
   }
 };
 
@@ -131,7 +96,7 @@ server.listen().then(({ url }) => {
 
 function getObjectById({ type, id }) {
   const types = {
-    Character: fetchCharacterById
+    // TODO
   };
 
   return types[type](id);
