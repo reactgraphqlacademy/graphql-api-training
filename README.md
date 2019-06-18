@@ -1,34 +1,31 @@
-# Thinking in GraphQL exercise
+# GraphQL API Fundamentals
 
-This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy) learning material. The goal of the exercise is to help you get started transitioning from REST to GraphQL.
+This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy) learning material. The goal of this exercise is to help you understand how Relay Cursor Connections work.
 
 ## Learning objectives
 
-- Thinking in Graphs
-- Learn how to connect resolvers to a REST API
-- Understand Schema Design principles
+- Understand Relay Cursor Connections
+- Learn how and when to use GraphQL interfaces, unions, and fragments
 
-## Exercise part 1
+## To get started
 
-[https://rickandmortyapi.com/graphql/](https://rickandmortyapi.com/graphql/)
+### Step 1
 
-- Query a list with all the character names
-- Query how many characters are in the system
-- Query a single characther by id (try id equals 1) and get its name
-- How many types do we have in the system?
+If you haven't already set up your project, head here and follow the instructions https://github.com/reactgraphqlacademy/graphql-api-training/blob/master/README.md
 
-## Exercise part 2
+### Step 2
 
-### To get started
+```console
+git checkout relay
+```
 
-We are going to create our own GraphQL API on top of this [Rick and Morty API](https://rickandmortyapi.com/documentation/#rest)
+### Step 3
 
-- `git clone git@github.com:reactgraphqlacademy/rest-to-graphql-workshop.git`
-- `cd rest-to-graphql-workshop`
-- `yarn install` or `npm install`
-- `yarn start` or `npm start`
+```console
+yarn
+```
 
-### Tasks
+## Exercise
 
 - [ ] 1. Create a `Character` type in your schema. Use the [documentation of the character endpoint](https://rickandmortyapi.com/documentation/#character-schema) to define the shape of the `Character` type.
 
