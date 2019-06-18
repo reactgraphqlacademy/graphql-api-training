@@ -1,5 +1,5 @@
 {
-  "name": "rest-to-graphql-workshop",
+  "name": "graphql-api-training",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -9,18 +9,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/reactgraphqlacademy/rest-to-graphql-workshop.git"
+    "url": "git+https://github.com/reactgraphqlacademy/endgraphql-api-trainingpoint.git"
   },
   "author": "React Graphql Academy",
   "license": "GPL version 3",
   "bugs": {
-    "url": "https://github.com/reactgraphqlacademy/rest-to-graphql-workshop/issues"
+    "url": "https://github.com/reactgraphqlacademy/endgraphql-api-trainingpoint/issues"
   },
-  "homepage": "https://github.com/reactgraphqlacademy/rest-to-graphql-workshop#readme",
+  "homepage": "https://github.com/reactgraphqlacademy/endgraphql-api-trainingpoint#readme",
   "dependencies": {
     "apollo-server": "^2.5.0",
     "graphql": "^14.3.1",
-    "graphql-relay": "^0.6.0",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
