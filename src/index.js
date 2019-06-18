@@ -116,6 +116,11 @@ const resolvers = {
 
       return null;
     }
+  },
+  INode: {
+    __resolveType() {
+      return null;
+    }
   }
 };
 
