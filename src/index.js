@@ -109,6 +109,12 @@ function fetchEpisodesData() {
   );
 }
 
+function fetchEpisodes() {
+  return fetch("https://rickandmortyapi.com/api/episode/")
+    .then(res => res.json())
+    .then(json => json.results);
+}
+
 function fetchEpisodeById(id) {
   return fetch("https://rickandmortyapi.com/api/episode/" + id)
     .then(res => res.json())
