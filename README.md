@@ -1,4 +1,4 @@
-# GraphQL API Fundamentals
+# Relay Cursor Connections
 
 This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy) learning material. The goal of this exercise is to help you understand how Relay Cursor Connections work.
 
