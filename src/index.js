@@ -78,7 +78,7 @@ const resolvers = {
     }
   },
   Character: {
-    id: parent => parent.id, // TODO
+    id: parent => parent.id, // override the id field to return a global id for the Character type
     episodes: parent => {
       const characterEpisodes = parent.episode || [];
       return characterEpisodes.map(fetchEpisodeByUrl);

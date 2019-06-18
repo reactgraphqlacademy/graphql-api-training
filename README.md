@@ -27,10 +27,17 @@ yarn
 
 ## Exercise
 
-- [ ] 1. Create in interface called INode with a field ID that can't be null.
-  - [ ] 1.1 Character should implement the INode interface
-  - [ ] 1.1 Episode should implement the INode interface. Hint, the ID type in Episode is not correct so you need to update it to comply with the interface
-- [ ] 2. Create a union of Character and Episode called Node
+- 1. Since we are going to share the same field id in different types, we are going to define an interface for it. [Official GraphQL documenation about interfaces](https://graphql.org/learn/schema/#interfaces). Tasks:
+  - [ ] 1.1. Create in interface called INode with a field ID that can't be null.
+  - [ ] 1.2. Character should implement the INode interface
+  - [ ] 1.3. Episode should implement the INode interface. Hint, the ID type in Episode is not correct so you need to update it to comply with the interface
+- 2. In order to be Relay compliant the GraphQL server needs to be able to retrive any node in the system by id.
+  - [ ] 1. Implement a [union](https://graphql.org/learn/schema/#union-types) called `Node` in the schema made of `Episode` and `Character`
+  - [ ] 2. Finalize the `getObjectById` function. This function receives the name of the type and id, and maps that type with the function that retrieves the data by id.
+  - [ ] 3. Implement a field `Node` in the `Query` type that given an ID! returns the actual object. The resolver should use the `getObjectById` you've implemented and the `fromGlobalId` function imported from [graphql-relay](https://github.com/graphql/graphql-relay-js/blob/master/src/node/node.js#L104)
+  - [ ] 4. The `Character` type should override the default resolver for the field `id` and use `toGlobalId` to return a global id for that type.
+  - [ ] 5. Add a resolver for the `Node` type that implements the `__resolveType(obj){}` function. You can check the Apollo [documentation about unions](https://www.apollographql.com/docs/apollo-server/features/unions-interfaces/#union-type). To infer the types in this case you can consider that if the object as a key called `episode` then it's a `Character` type. The opposite is also true, if the object as a field called `character` then it's an `Episode` type.
+- 3.
 
 ### Bonus
 
