@@ -43,8 +43,8 @@ const typeDefs = gql`
     episodes: [Episode]
   }
 
-  type Episode {
-    id: ID
+  type Episode implements INode {
+    id: ID!
     name: String
     characters: [Character]
   }
@@ -59,6 +59,7 @@ const typeDefs = gql`
     ): CharactersConnection
     character(id: Int): Character
     episodes: [Episode]
+    characters: [Character]
     episode(id: Int): Episode
   }
 `;
@@ -87,8 +88,10 @@ const resolvers = {
         }
       };
     },
+    // TODO Ad a comment we'll use the toGlobalId in the nex step
     node: (_, { id }) => getObjectById(fromGlobalId(id)),
     character: (_, args) => fetchCharacterById(args.id),
+    characters: (_, args) => fetchCharacters(),
     episodes: () => fetchEpisodes(),
     episode: (_, args) => fetchEpisodeById(args.id)
   },
@@ -132,7 +135,7 @@ server.listen().then(({ url }) => {
 
 function getObjectById({ type, id }) {
   const types = {
-    Character: fetchCharacterById
+    [CHARACTER_TYPE]: fetchCharacterById
   };
 
   return types[type](id);
@@ -160,6 +163,12 @@ function fetchCharactersData() {
   return fetch("https://rickandmortyapi.com/api/character/").then(res =>
     res.json()
   );
+}
+
+function fetchCharacters() {
+  return fetch("https://rickandmortyapi.com/api/character/")
+    .then(res => res.json())
+    .then(json => json.results);
 }
 
 function fetchCharacterById(id) {
