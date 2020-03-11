@@ -26,8 +26,8 @@ This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy
 
 We are going to create our own GraphQL API on top of this [Rick and Morty API](https://rickandmortyapi.com/documentation/#rest)
 
-- `git clone git@github.com:reactgraphqlacademy/rest-to-graphql-workshop.git`
-- `cd rest-to-graphql-workshop`
+- `git clone https://github.com/reactgraphqlacademy/graphql-api-training.git`
+- `cd graphql-api-training`
 - `yarn install` or `npm install`
 - `yarn start` or `npm start`
 
