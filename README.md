@@ -4,9 +4,12 @@ This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy
 
 ## Learning objectives
 
-- Thinking in Graphs
-- Learn how to connect resolvers to a REST API
-- Understand Schema Design principles
+- Understand the main functionalities and responsibilities of a GraphQL
+  Server
+- Learn how to migrate an existing REST API to GraphQL and start
+  “thinking in graphs”
+- Start identifying potential problems when running real-world GraphQL
+  APIs
 
 ## Exercise part 1
 
@@ -27,6 +30,8 @@ We are going to create our own GraphQL API on top of this [Rick and Morty API](h
 - `cd rest-to-graphql-workshop`
 - `yarn install` or `npm install`
 - `yarn start` or `npm start`
+
+### Before we start
 
 ### Tasks
 
@@ -49,18 +54,95 @@ We are going to create our own GraphQL API on top of this [Rick and Morty API](h
     - Query characters
     - Query episodes
 
-- [ ] 4. Create a relationship between Episode type and Character type in your schema. Please have a look at the [documentation of the episode endpoint](https://rickandmortyapi.com/documentation/#episode-schema) to see how to get the episodes of a given character (heads up! we are calling the field in our Characters `episodes` but the REST API is calling the field that returns an array of episodes as `episode` - singular!). Hints:
+Note on mocking. In the next session we'll use the automocking feature of Apollo Server. The only thing you need to do is `mocks:true` in your Apollo Server configuration. More info [here](https://www.apollographql.com/docs/apollo-server/testing/mocking/).
+
+```js
+const server = new ApolloServer({
+  typeDefs,
+  mocks: true // ⬅️⬅️⬅️⬅️
+});
+```
+
+## Exercise part 3
+
+### Before we start
+
+Resolvers are functions that have 4 arguments `(parent, args, context, info)`. In this exercise, we are only going to use the first 2 arguments: `parent` and `args`.
+
+Parent points to the parent object. In the following example parent points to the author object:
+
+```js
+const resolvers = {
+  Author: {
+    books: (parent) {
+      console.log(parent) // { id: 1, name: "William Shakespeares", etc...}
+    }
+  }
+};
+```
+
+In the following example args points to `id`:
+
+```js
+const schema = gql`
+  type Query {
+    author(id: ID!): Author
+  }
+`;
+const resolvers = {
+  Query: {
+    author(parent, args) {
+      console.log(args); // { id: 3 } based on the query below
+    }
+  }
+};
+```
+
+```graphql
+query authorName {
+  author(id: 3) {
+    name
+  }
+}
+```
+
+### tasks
+
+- [ ] 4. Create a query that returns a single Character given an id. You need to fetch the character using `https://rickandmortyapi.com/documentation/#get-a-single-character`. Hint, you need to use [arguments](https://graphql.org/graphql-js/passing-arguments/)
+
+```graphql
+query character {
+  character(id: 1) {
+    name
+  }
+}
+```
+
+- [ ] 5. Create a relationship between Episode type and Character type in your schema. Please have a look at the [documentation of the episode endpoint](https://rickandmortyapi.com/documentation/#episode-schema) to see how to get the episodes of a given character (heads up! we are calling the field in our Characters `episodes` but the REST API is calling the field that returns an array of episodes as `episode` - singular!). Hints:
 
   - You need to add a `Character` key in the resolvers object and an object with an `episodes` key in `Character`. Similar to the Author type and books field in the [Apollo documentation](https://www.apollographql.com/docs/apollo-server/essentials/data#resolver-map). Hint: The first argument of the resolver is the 'parent' type, in this case, the parent of the `episodes` field is the `Character`. parent.episode gives you the array of episodes returned from the REST API.
   - You can use the helper fetch functions defined at the bottom of this file `src/index.js`.
+  - Heads up! The REST API returns an `episode` key with is an array of URL to fetch a single episode. We want our Character type to have a field called `episodes` that returns an array of `Episode` types
+  - You should be able to run the following query:
 
-- [ ] 5. Create a query that returns a single Character given an id. You need to fetch the character using `https://rickandmortyapi.com/documentation/#get-a-single-character`. Hint, you need to use [arguments](https://graphql.org/graphql-js/passing-arguments/)
+  ```graphql
+  query character {
+    character(id: 1) {
+      name
+      episodes {
+        name
+      }
+    }
+  }
+  ```
+
+````
 
 ### Bonus
 
 - Create the types and resolvers so the following query works:
 
-```
+```graphql
 query episode {
   episode(id: 1) {
     name
@@ -69,7 +151,7 @@ query episode {
     }
   }
 }
-```
+````
 
 - Once implemented, do you see any vulnerability issues on that query?
 
