@@ -33,6 +33,27 @@ We are going to create our own GraphQL API on top of this [Rick and Morty API](h
 
 ### Before we start
 
+- Clone the repo, git checkout the `fundamentals` branch, install the dependencies and let me walk you through the code meanwhile.
+- We use nodemon in the `start` script, so every time you save the server will restart automatically.
+- The `src/index.js` is the [getting started tutorial](https://www.apollographql.com/docs/apollo-server/getting-started/) from Apollo.
+- Let's replace the schema:
+
+```graphql
+type Query {
+  books: [Book]
+}
+```
+
+with
+
+```graphql
+type Query {
+  potatoes: [Book]
+}
+```
+
+What do we need to change? I'll give you 2 min to fix it :)
+
 ### Tasks
 
 - [ ] 1. Create a `Character` type in your schema. Use the [documentation of the character endpoint](https://rickandmortyapi.com/documentation/#character-schema) to define the shape of the `Character` type.
