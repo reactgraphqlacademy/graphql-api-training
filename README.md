@@ -157,8 +157,6 @@ query character {
   }
   ```
 
-````
-
 ### Bonus
 
 - Create the types and resolvers so the following query works:
@@ -172,7 +170,7 @@ query episode {
     }
   }
 }
-````
+```
 
 - Once implemented, do you see any vulnerability issues on that query?
 
