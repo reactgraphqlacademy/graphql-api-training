@@ -4,12 +4,9 @@ This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy
 
 ## Learning objectives
 
-- Understand the main functionalities and responsibilities of a GraphQL
-  Server
-- Learn how to migrate an existing REST API to GraphQL and start
-  “thinking in graphs”
-- Start identifying potential problems when running real-world GraphQL
-  APIs
+- Understand the main functionalities and responsibilities of a GraphQL server
+- Learn how to migrate an existing REST API to GraphQL and start “thinking in graphs”
+- Start identifying potential problems when running real-world GraphQL APIs
 
 ## Exercise part 1
 
@@ -200,7 +197,7 @@ You are going to build a GraphQL API on top of an existing REST API. Steps:
 
 1- Choose a public API. You have a list of public APIs [here](https://github.com/public-apis/public-apis). Suggestion, choose an API that doesn't require authentication and has decent documentation.
 
-2- Create a GraphQL Server to validate and execute the GraphQL queries. You can get started using the [getting started tutorial](https://www.apollographql.com/docs/apollo-server/getting-started/) from Apollo Server.
+2- Create a GraphQL server to validate and execute the GraphQL queries. You can get started using the [getting started tutorial](https://www.apollographql.com/docs/apollo-server/getting-started/) from Apollo Server.
 
 3- Create the GraphQL schema using the [Schema Definition Language (SDL)](https://www.prisma.io/blog/graphql-sdl-schema-definition-language-6755bcb9ce51) . You'll define types and relationships between those types.
 
