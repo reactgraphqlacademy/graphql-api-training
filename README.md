@@ -194,6 +194,18 @@ query episode {
 
 - Once implemented, do you see any problems/ vulnerability issues on that query?
 
+## Homework
+
+You are going to build a GraphQL API on top of an existent REST API. Steps:
+
+1- Choose a public API. You have a list of APIs [here](https://github.com/public-apis/public-apis). Suggestion, choose an API that doesn't require authentication and has decent documentation.
+
+2- Create a GraphQL Server to validate and execute the GraphQL queries. You can get started using the [getting started tutorial](https://www.apollographql.com/docs/apollo-server/getting-started/) from Apollo Server.
+
+3- Create the GraphQL schema using the [Schema Definition Language (SDL)](https://www.prisma.io/blog/graphql-sdl-schema-definition-language-6755bcb9ce51) . You'll define types and relationships between those types.
+
+4- Add the resolvers to your schema. We are following a SDL-first approach to build our schema. It's the most popular approach in the GraphQL JavaScript community, but be aware that it's not the only one. You can read more about it and other alternatives in this [article](https://www.prisma.io/blog/the-problems-of-schema-first-graphql-development-x1mn4cb0tyl3)
+
 ## Articles and links
 
 - http://graphql.org/learn/
