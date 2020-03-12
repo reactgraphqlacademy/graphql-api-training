@@ -52,7 +52,7 @@ type Query {
 }
 ```
 
-What do we need to change? I'll give you 2 minutes to fix it :)
+What do we need to change so the field potatoes returns the array of books when we run the query? I'll give you 2 minutes to fix it :)
 
 ### Tasks
 
@@ -60,7 +60,7 @@ To complete the tasks you'll use the mock data and helper functions that are at 
 
 - [ ] 1. Create a `Character` type in your schema. Define only the fields `name`, `id`, `status`, `episode`. More info about those fields in the [documentation of the character endpoint](https://rickandmortyapi.com/documentation/#character-schema)
 
-  - [ ] 1.1. Add a `characters` field to the `Query` type. You can replace the `books` field from Query type on line 32 with `characters` since we won't use books. The `characters` field in the `Query` type should return an array of [Character].
+  - [ ] 1.1. Add a `characters` field to the `Query` type. You can replace the `books` field from Query type on line 32 with `characters` since we won't use books. The `characters` field in the `Query` type should return an array of characters, meaning `[Character]`.
   - [ ] 1.2. Add a `characters` resolver to the Query's resolvers. You can replace the `books` field from Query type on line 40 with `characters` since we won't use books. You can return the mock characters array (which is in the scope and defined at the bottom of the file index.js) in the resolver function.
   - [ ] 1.3 You should be able to manually test the `characters` query in Playground at [http://localhost:4000/](http://localhost:4000/)
 
@@ -98,7 +98,7 @@ const server = new ApolloServer({
 
 Resolvers are functions that have 4 arguments `(parent, args, context, info)`. In this exercise, we are only going to use the first 2 arguments: `parent` and `args`.
 
-Parent points to the parent object. In the following example parent points to the author object:
+The first argument `parent` points to the parent object. In the following example parent points to the author object:
 
 ```js
 const resolvers = {
@@ -110,7 +110,7 @@ const resolvers = {
 };
 ```
 
-In the following example args points to `id`:
+The second argument of the resolver (we are calling it `args`) points to the arguments passed to the field. In the following example args points to `id`:
 
 ```js
 const schema = gql`
