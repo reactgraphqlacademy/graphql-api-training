@@ -56,7 +56,7 @@ const characters = [
     name: "Rick Sanchez",
     id: 1,
     status: "Alive",
-    episodes: [
+    episode: [
       "https://rickandmortyapi.com/api/episode/1",
       "https://rickandmortyapi.com/api/episode/2"
     ]
@@ -65,7 +65,7 @@ const characters = [
     name: "Morty Smith",
     id: 2,
     status: "Alive",
-    episodes: [
+    episode: [
       "https://rickandmortyapi.com/api/episode/1",
       "https://rickandmortyapi.com/api/episode/3"
     ]

@@ -52,23 +52,25 @@ type Query {
 }
 ```
 
-What do we need to change? I'll give you 2 min to fix it :)
+What do we need to change? I'll give you 2 minutes to fix it :)
 
 ### Tasks
 
-- [ ] 1. Create a `Character` type in your schema. Use the [documentation of the character endpoint](https://rickandmortyapi.com/documentation/#character-schema) to define the shape of the `Character` type.
+To complete the tasks you'll use the mock data and helper functions that are at the bottom of the file `src/index.js`.
+
+- [ ] 1. Create a `Character` type in your schema. Define only the fields `name`, `id`, `status`, `episode`. More info about those fields in the [documentation of the character endpoint](https://rickandmortyapi.com/documentation/#character-schema)
 
   - [ ] 1.1. Add a `characters` field to the `Query` type. You can replace the `books` field from Query type on line 32 with `characters` since we won't use books. The `characters` field in the `Query` type should return an array of [Character].
   - [ ] 1.2. Add a `characters` resolver to the Query's resolvers. You can replace the `books` field from Query type on line 40 with `characters` since we won't use books. You can return the mock characters array (which is in the scope and defined at the bottom of the file index.js) in the resolver function.
   - [ ] 1.3 You should be able to manually test the `characters` query in Playground at [http://localhost:4000/](http://localhost:4000/)
 
-- [ ] 2. Create an `Episode` type in your schema. Use the [documentation of the episode endpoint](https://rickandmortyapi.com/documentation/#episode-schema) to define the shape of the `Episode` type. Here you are practicing what you've learned on the previous task (1).
+- [ ] 2. Create an `Episode` type in your schema. Define only the fields `name`, `id`. More info about those fields in the [documentation of the episode endpoint](https://rickandmortyapi.com/documentation/#episode-schema).
 
-  - [ ] 2.1. Add an `episodes` field to the `Query` type. The `episodes` field should return an array of [Episode]
+  - [ ] 2.1. Add an `episodes` field to the `Query` type. The `episodes` field should return an array of episodes, meaning `[Episode]`.
   - [ ] 2.2. Add an `episodes` resolver to the Query's resolvers. You can return the mock episodes array (which is in the scope and defined at the bottom of the file index.js) in the resolver function.
   - [ ] 2.3 You should be able to manually test the `episodes` query in Playground at [http://localhost:4000/](http://localhost:4000/)
 
-- [ ] 3. Replace the mock data using https://rickandmortyapi.com/documentation/#rest.
+- [ ] 3. Replace the mock data with real data from https://rickandmortyapi.com/documentation/#rest.
 
   - You can use the `fetchEpisodes` and `fetchCharacters` defined at the bottom of this file `src/index.js`
   - You'll need to replace mock data in 2 different places:
@@ -83,6 +85,12 @@ const server = new ApolloServer({
   mocks: true // ⬅️⬅️⬅️⬅️
 });
 ```
+
+#### Bonus exercise part 2
+
+- Use the [documentation of the character endpoint](https://rickandmortyapi.com/documentation/#character-schema) to define all the fields of the `Character` type.
+
+- Use the [documentation of the episode endpoint](https://rickandmortyapi.com/documentation/#episode-schema) to define all the fields of the `Episode` type.
 
 ## Exercise part 3
 
@@ -129,7 +137,9 @@ query authorName {
 
 ### tasks
 
-- [ ] 4. Create a query that returns a single Character given an id. You need to fetch the character using `https://rickandmortyapi.com/documentation/#get-a-single-character`. Hint, you need to use [arguments](https://graphql.org/graphql-js/passing-arguments/)
+To complete the tasks you'll use the helper functions that are at the bottom of the file `src/index.js`
+
+- [ ] 4. Create a query that returns a single Character given an id. You need to fetch the character using `https://rickandmortyapi.com/documentation/#get-a-single-character`. Hint, you need to use [arguments](https://graphql.org/graphql-js/passing-arguments/).
 
 ```graphql
 query character {
@@ -139,25 +149,35 @@ query character {
 }
 ```
 
-- [ ] 5. Create a relationship between Episode type and Character type in your schema. Please have a look at the [documentation of the episode endpoint](https://rickandmortyapi.com/documentation/#episode-schema) to see how to get the episodes of a given character (heads up! we are calling the field in our Characters `episodes` but the REST API is calling the field that returns an array of episodes as `episode` - singular!). Hints:
+- [ ] 5. Create the following relationship between the Character type and the Episode type in your schema.
 
-  - You need to add a `Character` key in the resolvers object and an object with an `episodes` key in `Character`. Similar to the Author type and books field in the [Apollo documentation](https://www.apollographql.com/docs/apollo-server/essentials/data#resolver-map). Hint: The first argument of the resolver is the 'parent' type, in this case, the parent of the `episodes` field is the `Character`. parent.episode gives you the array of episodes returned from the REST API.
-  - You can use the helper fetch functions defined at the bottom of this file `src/index.js`.
-  - Heads up! The REST API returns an `episode` key with is an array of URL to fetch a single episode. We want our Character type to have a field called `episodes` that returns an array of `Episode` types
-  - You should be able to run the following query:
+```graphql
+type Character {
+  episodes: [Episode]
+  # the rest of the fields are the same
+}
+```
 
-  ```graphql
-  query character {
-    character(id: 1) {
+Heads up! In our `Character` type we are calling the field `episodes` but the REST API is calling that field `episode` - singular! Hints:
+
+- You need to add a `Character` key in the resolvers object and an object with an `episodes` key in `Character`. Similar to the Author type and books field in the [Apollo documentation](https://www.apollographql.com/docs/apollo-server/essentials/data#resolver-map)
+- You need to use the **first argument of the resolver**: the 'parent'. In this case, the parent of the `episodes` field is the `Character`. `parent.episode` gives you the array of URLs that you can use to fetch each episode from the REST API.
+- You can use the helper function `fetchCharacterByUrl` defined at the bottom of this file `src/index.js`.
+- Heads up! We want our Character type to have a field called `episodes` that returns an array of `Episode` types not `Strings`
+- Once implemented, you should be able to run the following query:
+
+```graphql
+query character {
+  character(id: 1) {
+    name
+    episodes {
       name
-      episodes {
-        name
-      }
     }
   }
-  ```
+}
+```
 
-### Bonus
+#### Bonus exercise part 3
 
 - Create the types and resolvers so the following query works:
 
@@ -172,7 +192,7 @@ query episode {
 }
 ```
 
-- Once implemented, do you see any vulnerability issues on that query?
+- Once implemented, do you see any problems/ vulnerability issues on that query?
 
 ## Articles and links
 
