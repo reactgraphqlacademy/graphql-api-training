@@ -135,7 +135,7 @@ query authorName {
 }
 ```
 
-### tasks
+### Tasks
 
 To complete the tasks you'll use the helper functions that are at the bottom of the file `src/index.js`
 
