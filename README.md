@@ -110,7 +110,7 @@ const resolvers = {
 };
 ```
 
-The second argument of the resolver (we are calling it `args`) points to the arguments passed to the field. In the following example args points to `id`:
+The second argument of the resolver (we are calling it `args`) points to the arguments passed to the field. In the following example `args` contains `id`:
 
 ```js
 const schema = gql`
@@ -139,7 +139,7 @@ query authorName {
 
 To complete the tasks you'll use the helper functions that are at the bottom of the file `src/index.js`
 
-- [ ] 4. Create a query that returns a single Character given an id. You need to fetch the character using `https://rickandmortyapi.com/documentation/#get-a-single-character`. Hint, you need to use [arguments](https://graphql.org/graphql-js/passing-arguments/).
+- [ ] 4. Create a query that returns a single Character given an id. You need to fetch the character using [https://rickandmortyapi.com/documentation/#get-a-single-character](https://rickandmortyapi.com/documentation/#get-a-single-character). Hint, you need to use [arguments](https://graphql.org/graphql-js/passing-arguments/).
 
 ```graphql
 query character {
