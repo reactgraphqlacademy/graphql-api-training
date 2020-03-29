@@ -2,44 +2,6 @@ const fetch = require("node-fetch");
 const { ApolloServer, gql } = require("apollo-server");
 const { GraphQLDateTime } = require("graphql-iso-date");
 
-const trainingMockData = [
-  {
-    id: "tra:1",
-    title: "React Fundamentals",
-    objectives: "learning basics of react",
-    curriculum:
-      "-Thinking in React, Modern JavaScript, Routing & Data Fetching\n-Forms, Authentication, and Hooks\n-Redux Fundamentals, deployment to production"
-  },
-  {
-    id: "tra:2",
-    title: "Advanced React",
-    objectives: "master react",
-    curriculum:
-      "-Advanced React patterns and performance.\n-GraphQL 101 & Real-World Testing in React.\n-Building a UI component library"
-  }
-];
-
-const discountMockData = [
-  {
-    id: "dis:1",
-    code: "sweetpotato60",
-    discountPercentage: 60,
-    description: null
-  },
-  {
-    id: "dis:2",
-    code: "garlic20",
-    discountPercentage: 20,
-    description: null
-  },
-  {
-    id: "dis:3",
-    code: "onion50",
-    discountPercentage: 50,
-    description: null
-  }
-];
-
 const typeDefs = gql`
   type Training {
     id: ID!
