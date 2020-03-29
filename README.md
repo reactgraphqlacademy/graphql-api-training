@@ -21,7 +21,7 @@ This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy
 
 ### To get started
 
-We are going to create our own GraphQL API on top of this [REST API](https://restapi.reactgraphql.academy/)
+We are going to create our own GraphQL API on top of this [REST API](https://restapi.reactgraphql.academy/v1/trainings)
 
 - `git clone https://github.com/reactgraphqlacademy/graphql-api-training.git`
 - `cd graphql-api-training`
