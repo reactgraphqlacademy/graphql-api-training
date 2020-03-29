@@ -31,7 +31,7 @@ We are going to create our own GraphQL API on top of this [REST API](https://res
 
 ### Before we start
 
-- Clone the repo, git checkout the `fundamentals` branch, install the dependencies and let me walk you through the code meanwhile.
+- Don't forget to checkout the `fundamentals` branch, install the dependencies, and let me walk you through the code meanwhile.
 - We use nodemon in the `start` script, so every time you save the server will restart automatically.
 - The `src/index.js` is the [getting started tutorial](https://www.apollographql.com/docs/apollo-server/getting-started/) from Apollo.
 - Let's replace the schema:
@@ -56,8 +56,8 @@ What do we need to change so the field avocados returns the array of books when 
 
 ⚠️ Some info before you start the tasks:
 1- You can define an array using square brackets and the type, example `[Book]`
-2- You can use the type `ID` for ids.
-3- In GraphQL types are nullable by default. If you want to make a type non-nullable use `!` (excalmation mark). Example:
+2- You can use the scalar type `ID` for ids.
+3- In GraphQL types are nullable by default. If you want to make a type non-nullable use `!` (exclamation mark). Example:
 
 ```graphql
 type Book {
@@ -75,8 +75,8 @@ To complete the tasks you'll use the mock data and helper functions that are at 
 
 - [ ] 2. Create a `Discount` type in your schema. Define only the fields `code`, `id`, and `discountPercentage`. Have a look at the discount mock data in `src/index.js` to identify the types of each field.
 
-  - [ ] 2.1. Add an `discounts` field to the `Query` type. The `discounts` field should return an array of discounts.
-  - [ ] 2.2. Add an `discounts` resolver to the Query's resolvers. You can return the mock discounts array (which is in the scope and defined at the bottom of the file index.js) in the resolver function.
+  - [ ] 2.1. Add a `discounts` field to the `Query` type. The `discounts` field should return an array of discounts.
+  - [ ] 2.2. Add a `discounts` resolver to the Query's resolvers. You can return the mock discounts array (which is in the scope and defined at the bottom of the file index.js) in the resolver function.
   - [ ] 2.3 You should be able to manually test the `discounts` query in Playground at [http://localhost:4000/](http://localhost:4000/)
 
 - [ ] 3. Replace the mock data with real data using the following endpoints:
@@ -89,7 +89,7 @@ Hint. You can use the `fetchTrainings` and `fetchDiscounts` defined at the botto
   - Query discounts
   - Query trainings
 
-Note on mocking. In the next session we'll use the automocking feature of Apollo Server. The only thing you need to do is `mocks:true` in your Apollo Server configuration. More info [here](https://www.apollographql.com/docs/apollo-server/testing/mocking/).
+Note on mocking. In the next session, we'll use the automocking feature of Apollo Server. The only thing you need to do is `mocks:true` in your Apollo Server configuration. More info [here](https://www.apollographql.com/docs/apollo-server/testing/mocking/).
 
 ```js
 const server = new ApolloServer({
@@ -201,7 +201,7 @@ query getTraining {
 }
 ```
 
-- [ ] 5. Create the following relationship between the Training type and the Discount type in your schema.
+- [ ] 5. Create the following relationship between the Training type and the Discount type in your schema:
 
 ```graphql
 type Training {
@@ -210,7 +210,7 @@ type Training {
 }
 ```
 
-- You need to add a `Training` key in the resolvers object and an object with an `discounts` key in `Training`. Similar to the Author type and books field in the [Apollo documentation](https://www.apollographql.com/docs/apollo-server/essentials/data#resolver-map)
+- You need to add a `Training` key in the resolvers object and an object with a `discounts` key in `Training`. Similar to the Author type and books field in the [Apollo documentation](https://www.apollographql.com/docs/apollo-server/essentials/data#resolver-map)
 - You need to use the **first argument of the resolver**: the 'parent'. In this case, the parent of the `discounts` field is the `Training`. `parent.discounts` gives you the array of URLs that you can use to fetch each discount from the REST API.
 - You can use the helper function `fetchDiscountByUrl` defined at the bottom of this file `src/index.js`.
 - Heads up! We want our Training type to have a field called `discounts` that returns an array of `Discount` types not an array of `String`
