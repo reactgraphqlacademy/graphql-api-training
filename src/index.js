@@ -1,184 +1,130 @@
 const fetch = require("node-fetch");
 const { ApolloServer, gql } = require("apollo-server");
-const {
-  fromGlobalId,
-  toGlobalId,
-  connectionFromArray
-} = require("graphql-relay");
-const mockedCharacters = require("../mocks/characters.json");
+const { GraphQLDateTime } = require("graphql-iso-date");
 
-const CHARACTER_TYPE = "Character";
-const EPISODE_TYPE = "Episode";
+const trainingMockData = [
+  {
+    id: "tra:1",
+    title: "React Fundamentals",
+    objectives: "learning basics of react",
+    curriculum:
+      "-Thinking in React, Modern JavaScript, Routing & Data Fetching\n-Forms, Authentication, and Hooks\n-Redux Fundamentals, deployment to production"
+  },
+  {
+    id: "tra:2",
+    title: "Advanced React",
+    objectives: "master react",
+    curriculum:
+      "-Advanced React patterns and performance.\n-GraphQL 101 & Real-World Testing in React.\n-Building a UI component library"
+  }
+];
+
+const discountMockData = [
+  {
+    id: "dis:1",
+    code: "sweetpotato60",
+    discountPercentage: 60,
+    description: null
+  },
+  {
+    id: "dis:2",
+    code: "garlic20",
+    discountPercentage: 20,
+    description: null
+  },
+  {
+    id: "dis:3",
+    code: "onion50",
+    discountPercentage: 50,
+    description: null
+  }
+];
 
 const typeDefs = gql`
-  interface INode {
+  type Training {
     id: ID!
+    title: String!
+    objectives: String!
+    curriculum: String!
+    overview: String
+    discounts: [Discount]
+    startDate: DateTime
   }
 
-  union Node = Character | Episode
-
-  type PageInfo {
-    # https://facebook.github.io/relay/graphql/connections.htm#sec-undefined.PageInfo.Fields
-    hasNextPage: Boolean!
-    hasPreviousPage: Boolean!
-    totalCount: Int # this is not part of the Relay specification but it's widely used
-  }
-
-  type CharacterEdge {
-    # https://facebook.github.io/relay/graphql/connections.htm#sec-Edge-Types
-    cursor: String!
-    node: Character
-  }
-
-  type CharactersConnection {
-    # https://facebook.github.io/relay/graphql/connections.htm#sec-Connection-Types.Fields
-    pageInfo: PageInfo!
-    edges: [CharacterEdge]
-  }
-
-  type Character implements INode {
+  type Discount {
     id: ID!
-    name: String
-    status: String
-    episodes: [Episode]
+    training: Training
+    code: String!
+    discountPercentage: Int!
+    description: String
   }
 
-  type Episode implements INode {
-    id: ID!
-    name: String
-    characters: [Character]
-  }
+  scalar DateTime
 
   type Query {
-    node(id: String!): Node
-    charactersConnection(
-      first: Int
-      after: String
-      last: Int
-      before: String
-    ): CharactersConnection
-    character(id: Int): Character
-    episodes: [Episode]
-    characters: [Character]
-    episode(id: Int): Episode
+    trainings: [Training!]
+    training(id: ID!): Training
+    discounts: [Discount!]
+    discount(id: ID!): Discount
   }
 `;
 
 const resolvers = {
   Query: {
-    charactersConnection: async (_, args) => {
-      // partial solution
-      // const characters = await fetchCharactersData();
-      // const pageInfo = {
-      //   hasNextPage: characters.info.next,
-      //   hasPreviousPage: characters.info.prev,
-      //   totalCount: characters.info.count
-      // };
-      // const edges = characters.results.map(node => ({
-      //   node,
-      //   cursor: "" // current page + id + next page
-      // }));
-      // return { edges, pageInfo };
-      const characters = connectionFromArray(mockedCharacters, args);
-      return {
-        ...characters,
-        pageInfo: {
-          ...characters.pageInfo,
-          totalCount: mockedCharacters.length
-        }
-      };
-    },
-    // TODO Ad a comment we'll use the toGlobalId in the nex step
-    node: (_, { id }) => getObjectById(fromGlobalId(id)),
-    character: (_, args) => fetchCharacterById(args.id),
-    characters: (_, args) => fetchCharacters(),
-    episodes: () => fetchEpisodes(),
-    episode: (_, args) => fetchEpisodeById(args.id)
+    trainings: () => fetchTrainings(),
+    discounts: () => fetchDiscounts(),
+    training: (_, { id }) => fetchTrainingById(id),
+    discount: (_, { id }) => fetchDiscountById(id)
   },
-  Episode: {
-    characters: parent => {
-      const { characters = [] } = parent;
-      return characters.map(fetchCharacterByUrl);
-    }
+  Discount: {
+    training: parent => fetchTrainingByUrl(parent.training)
   },
-  Character: {
-    id: parent => toGlobalId(CHARACTER_TYPE, parent.id),
-    episodes: parent => {
-      const characterEpisodes = parent.episode || [];
-      return characterEpisodes.map(fetchEpisodeByUrl);
-    }
+  Training: {
+    discounts: ({ discounts }) => discounts.map(fetchDiscountByUrl)
   },
-  Node: {
-    __resolveType(obj) {
-      if (obj.episode) {
-        return CHARACTER_TYPE;
-      }
-      if (obj.character) {
-        return EPISODE_TYPE;
-      }
-
-      return null;
-    }
-  },
-  INode: {
-    __resolveType() {
-      return null;
-    }
-  }
+  DateTime: GraphQLDateTime
 };
 
+function fetchTrainings() {
+  // More info about the fetch function? https://github.com/bitinn/node-fetch#json
+  return fetch("https://restapi.reactgraphql.academy/v1/trainings/").then(res =>
+    res.json()
+  );
+}
+
+function fetchTrainingById(id) {
+  return fetch(
+    `https://restapi.reactgraphql.academy/v1/trainings/${id}`
+  ).then(res => res.json());
+}
+
+function fetchDiscounts() {
+  return fetch("https://restapi.reactgraphql.academy/v1/discounts/").then(res =>
+    res.json()
+  );
+}
+
+function fetchTrainingByUrl(url) {
+  return fetch(url).then(res => res.json());
+}
+
+function fetchDiscountById(id) {
+  return fetch(
+    `https://restapi.reactgraphql.academy/v1/discounts/${id}`
+  ).then(res => res.json());
+}
+
+function fetchDiscountByUrl(url) {
+  return fetch(url).then(res => res.json());
+}
+
+// In the most basic sense, the ApolloServer can be started
+// by passing type definitions (typeDefs) and the resolvers
+// responsible for fetching the data for those types.
 const server = new ApolloServer({ typeDefs, resolvers });
 
+// This `listen` method launches a web-server.  Existing apps
+// can utilize middleware options, which we'll discuss later.
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });
-
-function getObjectById({ type, id }) {
-  const types = {
-    [CHARACTER_TYPE]: fetchCharacterById
-  };
-
-  return types[type](id);
-}
-
-function fetchEpisodesData() {
-  return fetch("https://rickandmortyapi.com/api/episode/").then(res =>
-    res.json()
-  );
-}
-
-function fetchEpisodeById(id) {
-  return fetch("https://rickandmortyapi.com/api/episode/" + id)
-    .then(res => res.json())
-    .then(json => json);
-}
-
-function fetchEpisodeByUrl(url) {
-  return fetch(url)
-    .then(res => res.json())
-    .then(json => json);
-}
-
-function fetchCharactersData() {
-  return fetch("https://rickandmortyapi.com/api/character/").then(res =>
-    res.json()
-  );
-}
-
-function fetchCharacters() {
-  return fetch("https://rickandmortyapi.com/api/character/")
-    .then(res => res.json())
-    .then(json => json.results);
-}
-
-function fetchCharacterById(id) {
-  return fetch("https://rickandmortyapi.com/api/character/" + id)
-    .then(res => res.json())
-    .then(json => json);
-}
-
-function fetchCharacterByUrl(url) {
-  return fetch(url)
-    .then(res => res.json())
-    .then(json => json);
-}
