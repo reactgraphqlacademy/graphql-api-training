@@ -1,5 +1,6 @@
+const express = require("express");
 const fetch = require("node-fetch");
-const { ApolloServer, gql } = require("apollo-server");
+const { ApolloServer, gql } = require("apollo-server-express");
 const { GraphQLDateTime } = require("graphql-iso-date");
 
 const typeDefs = gql`
@@ -11,6 +12,7 @@ const typeDefs = gql`
     overview: String
     discounts: [Discount]
     startDate: DateTime
+    language: Language
   }
 
   type Discount {
@@ -22,6 +24,19 @@ const typeDefs = gql`
   }
 
   scalar DateTime
+
+  enum Language {
+    EN
+    ES
+    FR
+    IT
+    PT
+    NL
+    DE
+    ZH
+    JA
+    RU
+  }
 
   type Query {
     trainings: [Training!]
@@ -49,19 +64,19 @@ const resolvers = {
 
 function fetchTrainings() {
   // More info about the fetch function? https://github.com/bitinn/node-fetch#json
-  return fetch("https://restapi.reactgraphql.academy/v1/trainings/")
+  return fetch("https://api.reactgraphql.academy/api/rest/trainings/")
     .then(res => res.json())
     .catch(error => console.log(error));
 }
 
 function fetchTrainingById(id) {
-  return fetch(`https://restapi.reactgraphql.academy/v1/trainings/${id}`)
+  return fetch(`https://api.reactgraphql.academy/api/rest/trainings/${id}`)
     .then(res => res.json())
     .catch(error => console.log(error));
 }
 
 function fetchDiscounts() {
-  return fetch("https://restapi.reactgraphql.academy/v1/discounts/")
+  return fetch("https://api.reactgraphql.academy/api/rest/discounts/")
     .then(res => res.json())
     .catch(error => console.log(error));
 }
@@ -73,7 +88,7 @@ function fetchTrainingByUrl(url) {
 }
 
 function fetchDiscountById(id) {
-  return fetch(`https://restapi.reactgraphql.academy/v1/discounts/${id}`)
+  return fetch(`https://api.reactgraphql.academy/api/rest/discounts/${id}`)
     .then(res => res.json())
     .catch(error => console.log(error));
 }
@@ -84,13 +99,15 @@ function fetchDiscountByUrl(url) {
     .catch(error => console.log(error));
 }
 
-// In the most basic sense, the ApolloServer can be started
-// by passing type definitions (typeDefs) and the resolvers
-// responsible for fetching the data for those types.
-const server = new ApolloServer({ typeDefs, resolvers });
+module.exports = {
+  createServer: options => {
+    const app = express();
+    const apollo = new ApolloServer({ typeDefs, resolvers, ...options });
+    apollo.applyMiddleware({
+      app,
+      path: `/`
+    });
 
-// This `listen` method launches a web-server.  Existing apps
-// can utilize middleware options, which we'll discuss later.
-server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
-});
+    return app;
+  }
+};
