@@ -10,11 +10,11 @@ This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy
 
 ## Exercise part 1
 
-[](TODO DEPLOY URL)
+Given the following [GraphQL API](https://us-central1-rga-mocked-apis.cloudfunctions.net/graphql) / https://api.reactgraphql.academy/graphql:
 
-- Query a list with all the training titles
-- Query how many training are in the system?
-- Query a single training by id (try id equals TODO ADD ONE????????) and get its name
+- Query a list with all the training and retrieve the title and language for each
+- Query a single discount by id (try id equals `dis:422`) and get its name
+- Query how many languages are in the system?
 - How many types do we have in the system?
 
 ## Exercise part 2
@@ -247,6 +247,8 @@ query getDangerousDiscount {
 ```
 
 Once implemented, do you see any problems/ vulnerability issues on that query?
+
+🤸🏾Do you want some extra workout? Create an [enumeration](https://graphql.org/learn/schema/#enumeration-types) for the languages. Add field language to the Training object type that uses the language enum.
 
 ## Homework
 
