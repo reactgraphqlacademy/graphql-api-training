@@ -10,27 +10,28 @@ This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy
 
 ## Exercise part 1
 
-[https://rickandmortyapi.com/graphql/](https://rickandmortyapi.com/graphql/)
+Given the following [GraphQL API](https://us-central1-rga-mocked-apis.cloudfunctions.net/graphql) / https://api.reactgraphql.academy/graphql:
 
-- Query a list with all the character names
-- Query how many characters are in the system
-- Query a single characther by id (try id equals 1) and get its name
+- Query a list with all the training and retrieve the title and language for each
+- Query a single discount by id (try id equals `dis:422`) and get its name
+- Query how many languages are in the system?
 - How many types do we have in the system?
 
 ## Exercise part 2
 
 ### To get started
 
-We are going to create our own GraphQL API on top of this [Rick and Morty API](https://rickandmortyapi.com/documentation/#rest)
+We are going to create our own GraphQL API on top of this [REST API](https://restapi.reactgraphql.academy/v1/trainings)
 
 - `git clone https://github.com/reactgraphqlacademy/graphql-api-training.git`
 - `cd graphql-api-training`
+- `git checkout fundamentals-v2`
 - `yarn install` or `npm install`
 - `yarn start` or `npm start`
 
 ### Before we start
 
-- Clone the repo, git checkout the `fundamentals` branch, install the dependencies and let me walk you through the code meanwhile.
+- Don't forget to checkout the `fundamentals` branch, install the dependencies, and let me walk you through the code meanwhile.
 - We use nodemon in the `start` script, so every time you save the server will restart automatically.
 - The `src/index.js` is the [getting started tutorial](https://www.apollographql.com/docs/apollo-server/getting-started/) from Apollo.
 - Let's replace the schema:
@@ -45,36 +46,50 @@ with
 
 ```graphql
 type Query {
-  potatoes: [Book]
+  avocados: [Book]
 }
 ```
 
-What do we need to change so the field potatoes returns the array of books when we run the query? I'll give you 2 minutes to fix it :)
+What do we need to change so the field avocados returns the array of books when we run the query? I'll give you 2 minutes to fix it :)
 
 ### Tasks
 
+⚠️ Some info before you start the tasks:
+1- You can define an array using square brackets and the type, example `[Book]`
+2- You can use the scalar type `ID` for ids.
+3- In GraphQL types are nullable by default. If you want to make a type non-nullable use `!` (exclamation mark). Example:
+
+```graphql
+type Book {
+  id: ID!
+}
+```
+
 To complete the tasks you'll use the mock data and helper functions that are at the bottom of the file `src/index.js`.
 
-- [ ] 1. Create a `Character` type in your schema. Define only the fields `name`, `id`, `status`, `episode`. More info about those fields in the [documentation of the character endpoint](https://rickandmortyapi.com/documentation/#character-schema)
+- [ ] 1. Create a `Training` type in your schema. Define the following fields `title`, `id`, `objectives`, `curriculum`. Have a look at the mock training data in `src/index.js` to identify the types of each field.
 
-  - [ ] 1.1. Add a `characters` field to the `Query` type. You can replace the `books` field from Query type on line 32 with `characters` since we won't use books. The `characters` field in the `Query` type should return an array of characters, meaning `[Character]`.
-  - [ ] 1.2. Add a `characters` resolver to the Query's resolvers. You can replace the `books` field from Query type on line 40 with `characters` since we won't use books. You can return the mock characters array (which is in the scope and defined at the bottom of the file index.js) in the resolver function.
-  - [ ] 1.3 You should be able to manually test the `characters` query in Playground at [http://localhost:4000/](http://localhost:4000/)
+  - [ ] 1.1. Add a `trainings` field to the `Query` type. You can replace the `books` field from Query type with `trainings` since we won't use books. The `trainings` field in the `Query` type should return an array of training. .
+  - [ ] 1.2. Add a `trainings` resolver to the Query's resolvers. You can replace the `books` field from Query type with `trainings` since we won't use books. You can return the trainingMockData array (which is in the scope and defined at the bottom of the file index.js) in the resolver function.
+  - [ ] 1.3 You should be able to manually test the `trainings` query in Playground at [http://localhost:4000/](http://localhost:4000/)
 
-- [ ] 2. Create an `Episode` type in your schema. Define only the fields `name`, `id`. More info about those fields in the [documentation of the episode endpoint](https://rickandmortyapi.com/documentation/#episode-schema).
+- [ ] 2. Create a `Discount` type in your schema. Define only the fields `code`, `id`, and `discountPercentage`. Have a look at the discount mock data in `src/index.js` to identify the types of each field.
 
-  - [ ] 2.1. Add an `episodes` field to the `Query` type. The `episodes` field should return an array of episodes, meaning `[Episode]`.
-  - [ ] 2.2. Add an `episodes` resolver to the Query's resolvers. You can return the mock episodes array (which is in the scope and defined at the bottom of the file index.js) in the resolver function.
-  - [ ] 2.3 You should be able to manually test the `episodes` query in Playground at [http://localhost:4000/](http://localhost:4000/)
+  - [ ] 2.1. Add a `discounts` field to the `Query` type. The `discounts` field should return an array of discounts.
+  - [ ] 2.2. Add a `discounts` resolver to the Query's resolvers. You can return the mock discounts array (which is in the scope and defined at the bottom of the file index.js) in the resolver function.
+  - [ ] 2.3 You should be able to manually test the `discounts` query in Playground at [http://localhost:4000/](http://localhost:4000/)
 
-- [ ] 3. Replace the mock data with real data from https://rickandmortyapi.com/documentation/#rest.
+- [ ] 3. Replace the mock data with real data using the following endpoints:
+  - [https://mockedrestapi.reactgraphql.academy/v1/trainings](https://mockedrestapi.reactgraphql.academy/v1/trainings)
+  - [https://mockedrestapi.reactgraphql.academy/v1/discounts](https://mockedrestapi.reactgraphql.academy/v1/discounts)
 
-  - You can use the `fetchEpisodes` and `fetchCharacters` defined at the bottom of this file `src/index.js`
-  - You'll need to replace mock data in 2 different places:
-    - Query characters
-    - Query episodes
+Hint. You can use the `fetchTrainings` and `fetchDiscounts` defined at the bottom of this file `src/index.js`
 
-Note on mocking. In the next session we'll use the automocking feature of Apollo Server. The only thing you need to do is `mocks:true` in your Apollo Server configuration. More info [here](https://www.apollographql.com/docs/apollo-server/testing/mocking/).
+- You'll need to replace mock data in 2 different places:
+  - Query discounts
+  - Query trainings
+
+Note on mocking. In the next session, we'll use the automocking feature of Apollo Server. The only thing you need to do is `mocks:true` in your Apollo Server configuration. More info [here](https://www.apollographql.com/docs/apollo-server/testing/mocking/).
 
 ```js
 const server = new ApolloServer({
@@ -83,11 +98,13 @@ const server = new ApolloServer({
 });
 ```
 
-#### Bonus exercise part 2
+#### 🏋️‍♀️ Bonus exercise part 2
 
-- Use the [documentation of the character endpoint](https://rickandmortyapi.com/documentation/#character-schema) to define all the fields of the `Character` type.
+Congratulations, you've completed part 2! You've learned how to create object types in GraphQL and add fields to them using scalar types (`String`,`Int`, `ID`) or your own object types (`Training`, `Discount`). You've also learned how to create a relationship between two object types.
 
-- Use the [documentation of the episode endpoint](https://rickandmortyapi.com/documentation/#episode-schema) to define all the fields of the `Episode` type.
+In GraphQL you can also create your custom scalars types, like [Date](https://graphql.org/learn/schema/#scalar-types).
+
+Bonus task, add a field called `startDate` to the `Training` object type using a `DateTime` scalar type. GraphQL doesn't provide a DateTime type. Instead of creating a custom `DateTime` scalar type you are going to use [https://github.com/excitement-engineer/graphql-iso-date](https://github.com/excitement-engineer/graphql-iso-date). Note, the package is already installed in package.json.
 
 ## Exercise part 3
 
@@ -95,17 +112,53 @@ const server = new ApolloServer({
 
 Resolvers are functions that have 4 arguments `(parent, args, context, info)`. In this exercise, we are only going to use the first 2 arguments: `parent` and `args`.
 
-The first argument `parent` points to the parent object. In the following example parent points to the author object:
+#### The first argument of the resolver
+
+The first argument, often called `parent`, points to the parent object. For instance, we could override the default resolver of the title field in the Training and return an upper case version of the title.
+
+⚠️ Trainer implements:
 
 ```js
 const resolvers = {
-  Author: {
-    books: (parent) {
-      console.log(parent) // { id: 1, name: "William Shakespeares", etc...}
+  Query: {
+    //...
+  },
+  Training: {
+    title: (parent) {
+      return parent.title.toUpperCase()
     }
   }
 };
 ```
+
+We could also create a new field that returns the upper case version of the title without changing the title field. Example:
+
+⚠️ Learners implement (only 5 minutes to implement and write a query to test it!):
+
+```graphql
+type Training {
+  title: String!
+  upperCaseTitle: String!
+  # the rest remains the same
+}
+```
+
+```js
+const resolvers = {
+  Query: {
+    //...
+  },
+  Training: {
+    upperCaseTitle: (parent) {
+      return parent.title.toUpperCase()
+    }
+  }
+};
+```
+
+🏋️‍♀️Bonus exercise, return all the URLs of the discounts field in upper case.
+
+#### The second argument of the resolver
 
 The second argument of the resolver (we are calling it `args`) points to the arguments passed to the field. In the following example `args` contains `id`:
 
@@ -136,60 +189,66 @@ query authorName {
 
 To complete the tasks you'll use the helper functions that are at the bottom of the file `src/index.js`
 
-- [ ] 4. Create a query that returns a single Character given an id. You need to fetch the character using [https://rickandmortyapi.com/documentation/#get-a-single-character](https://rickandmortyapi.com/documentation/#get-a-single-character). Hint, you need to use [arguments](https://graphql.org/graphql-js/passing-arguments/).
+- [ ] 4. Implement a new field in the `Query` type that returns a single training given an id. You need to fetch the training from this endpoint `https://restapi.reactgraphql.academy/v1/trainings/` + `id`. Hint, you need to pass [arguments](https://graphql.org/graphql-js/passing-arguments/) to the field, and then use the second argument in the resolver. There is a helper function at the bottom of `src/index.js`.
+
+Once implemented you should be able to run the following query:
 
 ```graphql
-query character {
-  character(id: 1) {
-    name
+query getTraining {
+  training(id: "tra:22") {
+    title
   }
 }
 ```
 
-- [ ] 5. Create the following relationship between the Character type and the Episode type in your schema.
+- [ ] 5. Create the following relationship between the Training type and the Discount type in your schema:
 
 ```graphql
-type Character {
-  episodes: [Episode]
-  # the rest of the fields are the same
+type Training {
+  discounts: [Discount]
+  # the rest of the fields remain the same
 }
 ```
 
-Heads up! In our `Character` type we are calling the field `episodes` but the REST API is calling that field `episode` - singular! Hints:
-
-- You need to add a `Character` key in the resolvers object and an object with an `episodes` key in `Character`. Similar to the Author type and books field in the [Apollo documentation](https://www.apollographql.com/docs/apollo-server/essentials/data#resolver-map)
-- You need to use the **first argument of the resolver**: the 'parent'. In this case, the parent of the `episodes` field is the `Character`. `parent.episode` gives you the array of URLs that you can use to fetch each episode from the REST API.
-- You can use the helper function `fetchCharacterByUrl` defined at the bottom of this file `src/index.js`.
-- Heads up! We want our Character type to have a field called `episodes` that returns an array of `Episode` types not `Strings`
+- You need to add a `Training` key in the resolvers object and an object with a `discounts` key in `Training`. Similar to the Author type and books field in the [Apollo documentation](https://www.apollographql.com/docs/apollo-server/essentials/data#resolver-map)
+- You need to use the **first argument of the resolver**: the 'parent'. In this case, the parent of the `discounts` field is the `Training`. `parent.discounts` gives you the array of URLs that you can use to fetch each discount from the REST API.
+- You can use the helper function `fetchDiscountByUrl` defined at the bottom of this file `src/index.js`.
+- Heads up! We want our Training type to have a field called `discounts` that returns an array of `Discount` types not an array of `String`
 - Once implemented, you should be able to run the following query:
 
 ```graphql
-query character {
-  character(id: 1) {
-    name
-    episodes {
-      name
+query getTraining {
+  training(id: "tra:22") {
+    title
+    discounts {
+      code
     }
   }
 }
 ```
 
-#### Bonus exercise part 3
+#### 🏋️‍♀️ Bonus exercise part 3
 
 - Create the types and resolvers so the following query works:
 
 ```graphql
-query episode {
-  episode(id: 1) {
-    name
-    characters {
-      name
+query getDangerousDiscount {
+  discount(id: "dis:421") {
+    code
+    training {
+      title
+      discounts {
+        code
+        # why this query could be dangerous?
+      }
     }
   }
 }
 ```
 
-- Once implemented, do you see any problems/ vulnerability issues on that query?
+Once implemented, do you see any problems/ vulnerability issues on that query?
+
+🤸🏾Do you want some extra workout? Create an [enumeration](https://graphql.org/learn/schema/#enumeration-types) for the languages. Add field language to the Training object type that uses the language enum.
 
 ## Homework
 
