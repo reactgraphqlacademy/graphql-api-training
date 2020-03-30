@@ -31,7 +31,7 @@ We are going to create our own GraphQL API on top of this [REST API](https://res
 
 ### Before we start
 
-- Don't forget to checkout the `fundamentals` branch, install the dependencies, and let me walk you through the code meanwhile.
+- Don't forget to checkout the `fundamentals-v2` branch, install the dependencies, and let me walk you through the code meanwhile.
 - We use nodemon in the `start` script, so every time you save the server will restart automatically.
 - The `src/index.js` is the [getting started tutorial](https://www.apollographql.com/docs/apollo-server/getting-started/) from Apollo.
 - Let's replace the schema:
