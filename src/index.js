@@ -79,7 +79,9 @@ function fetchDiscountById(id) {
 }
 
 function fetchDiscountByUrl(url) {
-  return fetch(url).then(res => res.json());
+  return fetch(url)
+    .then(res => res.json())
+    .catch(error => console.log(error));
 }
 
 // In the most basic sense, the ApolloServer can be started
