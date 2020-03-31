@@ -56,9 +56,9 @@ What do we need to change so the field avocados returns the array of books when 
 
 ⚠️ Some info before you start the tasks:
 
-1. You can define an array using square brackets and the type, example `[Book]`
-2. You can use the scalar type `ID` for ids.
-3. In GraphQL types are nullable by default. If you want to make a type non-nullable use `!` (exclamation mark). Example:
+- You can define an array using square brackets and the type, example `[Book]`
+- You can use the scalar type `ID` for ids.
+- In GraphQL types are nullable by default. If you want to make a type non-nullable use `!` (exclamation mark). Example:
 
 ```graphql
 type Book {
