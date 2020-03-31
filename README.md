@@ -249,7 +249,7 @@ query getDangerousDiscount {
 Bonus final questions:
 
 - Once the getDangerousDiscount query is implemented, do you see any problem/ vulnerability issues on that query?
-- Should the relationship Discount to Training be non-nullable? meaning `training: Training` or `training: Training!`
+- Should the relationship Discount to Training be non-nullable? Meaning `training: Training` or `training: Training!`
 
 🤸🏾Do you want some extra workout? Create an [enumeration](https://graphql.org/learn/schema/#enumeration-types) for the languages. Add field language to the Training object type that uses the language enum.
 
