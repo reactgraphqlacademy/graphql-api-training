@@ -189,7 +189,7 @@ query authorName {
 
 To complete the tasks you'll use the helper functions that are at the bottom of the file `src/index.js`
 
-- [ ] 4. Implement a new field in the `Query` type that returns a single training given an id. You need to fetch the training from this endpoint `https://restapi.reactgraphql.academy/v1/trainings/` + `id`. 🕵️‍♂️ Hint, you need to pass [arguments](https://graphql.org/graphql-js/passing-arguments/) to the field, and then use the second argument in the resolver. There is a helper function at the bottom of `src/index.js`.
+- [ ] 4. Implement a new field in the `Query` type that returns a single training given an id. You need to fetch the training from this endpoint `https://api.reactgraphql.academy/rest/trainings/` + `id`. 🕵️‍♂️ Hint, you need to pass [arguments](https://graphql.org/graphql-js/passing-arguments/) to the field, and then use the second argument in the resolver. There is a helper function at the bottom of `src/index.js`.
 
 Once implemented you should be able to run the following query:
 
@@ -229,7 +229,7 @@ query getTraining {
 
 #### 🏋️‍♀️ Bonus exercise part 3
 
-- Create the types and resolvers so the following query works:
+Create the types and resolvers so the following query works:
 
 ```graphql
 query getDangerousDiscount {
@@ -246,7 +246,10 @@ query getDangerousDiscount {
 }
 ```
 
-Once implemented, do you see any problems/ vulnerability issues on that query?
+Bonus final questions:
+
+- Once the getDangerousDiscount query is implemented, do you see any problem/ vulnerability issues on that query?
+- Should the relationship Discount to Training be non-nullable? meaning `training: Training` or `training: Training!`
 
 🤸🏾Do you want some extra workout? Create an [enumeration](https://graphql.org/learn/schema/#enumeration-types) for the languages. Add field language to the Training object type that uses the language enum.
 
