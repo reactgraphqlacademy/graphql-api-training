@@ -108,7 +108,7 @@ Bonus task, add a field called `startDate` to the `Training` object type using a
 
 ## Exercise part 3
 
-### Before we start
+### 🥑 Before we start
 
 Resolvers are functions that have 4 arguments `(parent, args, context, info)`. In this exercise, we are only going to use the first 2 arguments: `parent` and `args`.
 
