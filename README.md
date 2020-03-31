@@ -50,7 +50,7 @@ type Query {
 }
 ```
 
-What do we need to change so the field avocados returns the array of books when we run the query? I'll give you 2 minutes to fix it :)
+What do we need to change so the field avocados returns the array of books when we run the query? ⏳I'll give you 2 minutes to fix it.
 
 ### Tasks
 
@@ -133,7 +133,7 @@ const resolvers = {
 
 We could also create a new field that returns the upper case version of the title without changing the title field. Example:
 
-⚠️ Learners implement (only 5 minutes to implement and write a query to test it!):
+⚠️ Learners implement (⏳ only 5 minutes to implement and write a query to test it!):
 
 ```graphql
 type Training {
