@@ -83,7 +83,7 @@ To complete the tasks you'll use the mock data and helper functions that are at 
   - [https://mockedrestapi.reactgraphql.academy/v1/trainings](https://mockedrestapi.reactgraphql.academy/v1/trainings)
   - [https://mockedrestapi.reactgraphql.academy/v1/discounts](https://mockedrestapi.reactgraphql.academy/v1/discounts)
 
-🕵️‍♂️ Hint. You can use the `fetchTrainings` and `fetchDiscounts` defined at the bottom of this file `src/index.js`
+🛠 Helper. You can use the `fetchTrainings` and `fetchDiscounts` defined at the bottom of this file `src/index.js`
 
 - You'll need to replace mock data in 2 different places:
   - Query discounts
