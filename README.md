@@ -189,7 +189,7 @@ query authorName {
 
 To complete the tasks you'll use the helper functions that are at the bottom of the file `src/index.js`
 
-- [ ] 4. Implement a new field in the `Query` type that returns a single training given an id. You need to fetch the training from this endpoint `https://restapi.reactgraphql.academy/v1/trainings/` + `id`. 🕵️‍♂️ Hint, you need to pass [arguments](https://graphql.org/graphql-js/passing-arguments/) to the field, and then use the second argument in the resolver. There is a helper function at the bottom of `src/index.js`.
+- [ ] 4. Implement a new field in the `Query` type that returns a single training given an id. You need to fetch the training from this endpoint `https://api.reactgraphql.academy/rest/trainings/` + `id`. 🕵️‍♂️ Hint, you need to pass [arguments](https://graphql.org/graphql-js/passing-arguments/) to the field, and then use the second argument in the resolver. There is a helper function at the bottom of `src/index.js`.
 
 Once implemented you should be able to run the following query:
 
