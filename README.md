@@ -10,7 +10,7 @@ This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy
 
 ## Exercise part 1
 
-Given the following [GraphQL API](https://us-central1-rga-mocked-apis.cloudfunctions.net/graphql) / https://api.reactgraphql.academy/graphql:
+Given the following [GraphQL API](https://us-central1-rga-mocked-apis.cloudfunctions.net/graphql):
 
 - Query a list with all the training and retrieve the title and language for each
 - Query a single discount by id (try id equals `dis:422`) and get its name
