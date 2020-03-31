@@ -83,7 +83,7 @@ To complete the tasks you'll use the mock data and helper functions that are at 
   - [https://mockedrestapi.reactgraphql.academy/v1/trainings](https://mockedrestapi.reactgraphql.academy/v1/trainings)
   - [https://mockedrestapi.reactgraphql.academy/v1/discounts](https://mockedrestapi.reactgraphql.academy/v1/discounts)
 
-Hint. You can use the `fetchTrainings` and `fetchDiscounts` defined at the bottom of this file `src/index.js`
+🕵️‍♂️ Hint. You can use the `fetchTrainings` and `fetchDiscounts` defined at the bottom of this file `src/index.js`
 
 - You'll need to replace mock data in 2 different places:
   - Query discounts
@@ -189,7 +189,7 @@ query authorName {
 
 To complete the tasks you'll use the helper functions that are at the bottom of the file `src/index.js`
 
-- [ ] 4. Implement a new field in the `Query` type that returns a single training given an id. You need to fetch the training from this endpoint `https://restapi.reactgraphql.academy/v1/trainings/` + `id`. Hint, you need to pass [arguments](https://graphql.org/graphql-js/passing-arguments/) to the field, and then use the second argument in the resolver. There is a helper function at the bottom of `src/index.js`.
+- [ ] 4. Implement a new field in the `Query` type that returns a single training given an id. You need to fetch the training from this endpoint `https://restapi.reactgraphql.academy/v1/trainings/` + `id`. 🕵️‍♂️ Hint, you need to pass [arguments](https://graphql.org/graphql-js/passing-arguments/) to the field, and then use the second argument in the resolver. There is a helper function at the bottom of `src/index.js`.
 
 Once implemented you should be able to run the following query:
 
