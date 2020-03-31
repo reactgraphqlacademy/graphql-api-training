@@ -10,7 +10,7 @@ This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy
 
 ## Exercise part 1
 
-Given the following [GraphQL API](https://us-central1-rga-mocked-apis.cloudfunctions.net/graphql) / https://api.reactgraphql.academy/graphql:
+Given the following [GraphQL API](https://us-central1-rga-mocked-apis.cloudfunctions.net/graphql):
 
 - Query a list with all the training and retrieve the title and language for each
 - Query a single discount by id (try id equals `dis:422`) and get its name
@@ -21,7 +21,7 @@ Given the following [GraphQL API](https://us-central1-rga-mocked-apis.cloudfunct
 
 ### To get started
 
-We are going to create our own GraphQL API on top of this [REST API](https://restapi.reactgraphql.academy/v1/trainings)
+We are going to create our own GraphQL API on top of this [REST API](https://api.reactgraphql.academy/rest/trainings)
 
 - `git clone https://github.com/reactgraphqlacademy/graphql-api-training.git`
 - `cd graphql-api-training`
@@ -29,7 +29,7 @@ We are going to create our own GraphQL API on top of this [REST API](https://res
 - `yarn install` or `npm install`
 - `yarn start` or `npm start`
 
-### Before we start
+### 🥑 Before we start
 
 - Don't forget to checkout the `fundamentals-v2` branch, install the dependencies, and let me walk you through the code meanwhile.
 - We use nodemon in the `start` script, so every time you save the server will restart automatically.
@@ -250,7 +250,7 @@ Once implemented, do you see any problems/ vulnerability issues on that query?
 
 🤸🏾Do you want some extra workout? Create an [enumeration](https://graphql.org/learn/schema/#enumeration-types) for the languages. Add field language to the Training object type that uses the language enum.
 
-## Homework
+## 🧘‍♀️Homework
 
 You are going to build a GraphQL API on top of an existing REST API. Steps:
 
