@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "source": "."
+  },
+  "hosting": {
+    "rewrites": [
+      {
+        "source": "/graphql",
+        "function": "graphql"
+      }
+    ]
+  }
+}

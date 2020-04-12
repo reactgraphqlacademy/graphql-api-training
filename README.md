@@ -58,7 +58,11 @@ What do we need to change so the field avocados returns the array of books when 
 
 - You can define an array using square brackets and the type, example `[Book]`
 - You can use the scalar type `ID` for ids.
-- In GraphQL types are nullable by default. If you want to make a type non-nullable use `!` (exclamation mark). Example:
+- # In GraphQL types are nullable by default. If you want to make a type non-nullable use `!` (exclamation mark). Example:
+
+  1- You can define an array using square brackets and the type, example `[Book]`
+  2- You can use the scalar type `ID` for ids.
+  3- In GraphQL types are nullable by default. If you want to make a type non-nullable use `!` (exclamation mark). Example:
 
 ```graphql
 type Book {
@@ -95,7 +99,7 @@ Note on mocking. In the next session, we'll use the automocking feature of Apoll
 ```js
 const server = new ApolloServer({
   typeDefs,
-  mocks: true // ⬅️⬅️⬅️⬅️
+  mocks: true, // ⬅️⬅️⬅️⬅️
 });
 ```
 
@@ -173,8 +177,8 @@ const resolvers = {
   Query: {
     author(parent, args) {
       console.log(args); // { id: 3 } based on the query below
-    }
-  }
+    },
+  },
 };
 ```
 
