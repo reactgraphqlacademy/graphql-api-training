@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { createServer } = require("./src/server");
 
 const server = createServer({ playground: true, introspection: true }).listen(
