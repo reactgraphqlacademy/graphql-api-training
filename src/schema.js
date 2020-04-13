@@ -11,7 +11,7 @@ const typeDefs = gql`
     endCursor: String
   }
 
-  type Training implements Node {
+  type Training {
     id: ID!
     title: String!
     objectives: String!
@@ -36,7 +36,7 @@ const typeDefs = gql`
     totalCount: Int
   }
 
-  type Discount implements Node {
+  type Discount {
     id: ID!
     code: String!
     discountPercentage: Int!
@@ -70,7 +70,6 @@ const typeDefs = gql`
   scalar DateTime
 
   type Query {
-    node(id: ID!): Node
     trainings(
       after: String
       first: Int
