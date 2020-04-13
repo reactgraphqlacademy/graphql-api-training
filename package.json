@@ -6,7 +6,7 @@
     "start": "node_modules/.bin/nodemon index-dev.js",
     "deploy": "firebase deploy --only functions",
     "start-babel": "node_modules/.bin/nodemon -- node_modules/.bin/babel-node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "populatedb": "node scripts/populatedb.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,8 @@
     "graphql": "^14.6.0",
     "graphql-iso-date": "^3.6.1",
     "graphql-relay": "^0.6.0",
+    "mongo-relay-connection": "^0.2.8",
+    "mongoose": "^5.9.7",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {

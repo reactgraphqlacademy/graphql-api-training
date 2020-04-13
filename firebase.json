@@ -5,7 +5,7 @@
   "hosting": {
     "rewrites": [
       {
-        "source": "/graphql",
+        "source": "/graphql/relay",
         "function": "graphql"
       }
     ]

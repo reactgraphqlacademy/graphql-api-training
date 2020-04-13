@@ -1,3 +1,4 @@
+require("./src/db");
 const functions = require("firebase-functions");
 const { createServer } = require("./src/server");
 
