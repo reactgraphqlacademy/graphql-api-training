@@ -1,290 +1,189 @@
 # GraphQL API Fundamentals
 
-This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy) learning material. The goal of the exercise is to help you get started transitioning from REST to GraphQL.
+This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy) learning material. The goal of the exercise is to learn how to implement [GraphQL Cursor Connections Specification](https://relay.dev/graphql/connections.htm).
 
 ## Learning objectives
 
-- Understand the main functionalities and responsibilities of a GraphQL server
-- Learn how to migrate an existing REST API to GraphQL and start “thinking in graphs”
-- Start identifying potential problems when running real-world GraphQL APIs
+- Understand the advantages of using the GraphQL Cursor Connections Specification
+- Learn how to implement in JavaScrip a GraphQL API compliant with the specification
+- Learn how to extend the implementation of the GraphQL Cursor Connections Specification and add things such as filters or total count.
 
-## Exercise part 1
-
-Given the following [GraphQL API](https://us-central1-rga-mocked-apis.cloudfunctions.net/graphql):
-
-- Query a list with all the training and retrieve the title and language for each
-- Query a single discount by id (try id equals `dis:422`) and get its name
-- Query how many languages are in the system?
-- How many types do we have in the system?
-
-## Exercise part 2
-
-### To get started
-
-We are going to create our own GraphQL API on top of this [REST API](https://api.reactgraphql.academy/rest/trainings)
+## To get started
 
 - `git clone https://github.com/reactgraphqlacademy/graphql-api-training.git`
 - `cd graphql-api-training`
-- `git checkout fundamentals-v2`
+- `git checkout relay-v2`
 - `yarn install` or `npm install`
 - `yarn start` or `npm start`
 
+## Exercise part 1 - Context
+
 ### 🥑 Before we start
 
-- Don't forget to checkout the `fundamentals-v2` branch, install the dependencies, and let me walk you through the code meanwhile.
+- ⚠️ Don't forget to checkout the `relay-v2` branch, install the dependencies, and let me walk you through the code meanwhile.
+- This exercise builds on top of [the fundamentals branch](https://github.com/reactgraphqlacademy/graphql-api-training/tree/fundamentals-v2)
 - We use nodemon in the `start` script, so every time you save, the server will restart automatically.
-- The `src/index.js` is the [getting started tutorial](https://www.apollographql.com/docs/apollo-server/getting-started/) from Apollo.
-- Let's replace the schema:
-
-```graphql
-type Query {
-  books: [Book]
-}
-```
-
-with
-
-```graphql
-type Query {
-  avocados: [Book]
-}
-```
-
-What do we need to change so the field avocados returns the array of books when we run the query? ⏳I'll give you 2 minutes to fix it.
 
 ### Tasks
 
-⚠️ Some info before you start the tasks:
-
-- You can define an array using square brackets and the type, example `[Book]`
-- You can use the scalar type `ID` for ids.
-- # In GraphQL types are nullable by default. If you want to make a type non-nullable use `!` (exclamation mark). Example:
-
-  1- You can define an array using square brackets and the type, example `[Book]`
-  2- You can use the scalar type `ID` for ids.
-  3- In GraphQL types are nullable by default. If you want to make a type non-nullable use `!` (exclamation mark). Example:
+- [ ] 1. Given the `services` object imported at the top of the file `src/server.js`, include the `services` in the context of the ApolloServer. You'll know it works because the following query will work on Playground, otherwise, you'll get an error such as `"message": "Cannot read property 'findTrainings' of undefined"`
 
 ```graphql
-type Book {
-  id: ID!
+query {
+  trainings {
+    id
+  }
 }
 ```
 
-To complete the tasks you'll use the mock data and helper functions that are at the bottom of the file `src/index.js`.
+- [ ] 2. In `src/schema.js`, replace all the `fetch` functions in all the Query resolvers with the corresponding function in the service. You'll know it works because all the queries will return ids like this `5e93558ae06e3d37d8f3705f` instead of `dis:421`
 
-- [ ] 1. Create a `Training` type in your schema. Define the following fields `title`, `id`, `objectives`, `curriculum`. Have a look at the mock training data in `src/index.js` to identify the types of each field.
-
-  - [ ] 1.1. Add a `trainings` field to the `Query` type. You can replace the `books` field from Query type with `trainings` since we won't use books. The `trainings` field in the `Query` type should return an array of training. .
-  - [ ] 1.2. Add a `trainings` resolver to the Query's resolvers. You can replace the `books` field from Query type with `trainings` since we won't use books. You can return the trainingMockData array (which is in the scope and defined at the bottom of the file index.js) in the resolver function.
-  - [ ] 1.3 You should be able to manually test the `trainings` query in Playground at [http://localhost:4000/](http://localhost:4000/)
-
-- [ ] 2. Create a `Discount` type in your schema. Define only the fields `code`, `id`, and `discountPercentage`. Have a look at the discount mock data in `src/index.js` to identify the types of each field.
-
-  - [ ] 2.1. Add a `discounts` field to the `Query` type. The `discounts` field should return an array of discounts.
-  - [ ] 2.2. Add a `discounts` resolver to the Query's resolvers. You can return the mock discounts array (which is in the scope and defined at the bottom of the file index.js) in the resolver function.
-  - [ ] 2.3 You should be able to manually test the `discounts` query in Playground at [http://localhost:4000/](http://localhost:4000/)
-
-- [ ] 3. Replace the mock data with real data using the following endpoints:
-  - [https://mockedrestapi.reactgraphql.academy/v1/trainings](https://mockedrestapi.reactgraphql.academy/v1/trainings)
-  - [https://mockedrestapi.reactgraphql.academy/v1/discounts](https://mockedrestapi.reactgraphql.academy/v1/discounts)
-
-🛠 Helper. You can use the `fetchTrainings` and `fetchDiscounts` defined at the bottom of this file `src/index.js`
-
-- You'll need to replace mock data in 2 different places:
-  - Query discounts
-  - Query trainings
-
-Note on mocking. In the next session, we'll use the automocking feature of Apollo Server. The only thing you need to do is `mocks:true` in your Apollo Server configuration. More info [here](https://www.apollographql.com/docs/apollo-server/testing/mocking/).
-
-```js
-const server = new ApolloServer({
-  typeDefs,
-  mocks: true, // ⬅️⬅️⬅️⬅️
-});
+```graphql
+query {
+  discounts {
+    id
+  }
+}
 ```
+
+#### 🏋️‍♀️ Bonus exercise part 1
+
+Congratulations, you've completed part 1! You've learned how to use the context for passing things that any resolver might need. In our exercise, we used context to pass all the functions used to "resolve" data.
+
+In this bonus exercise you are going to use the context to pass the authentication scope to the resolvers. You have an example [here](https://www.apollographql.com/docs/apollo-server/data/resolvers/#the-context-argument). You can use the helper function `authScope` defined at the top of `src/server.js`.
+
+## Exercise part 2 - GraphQL Cursor Connections Specification
+
+### 🥑 Before we start
+
+There are two reasons for which you might want to use the [GraphQL Cursor Connections Specification](https://relay.dev/graphql/connections.htm):
+1- Provide an option for GraphQL clients to consistently handle [pagination best practices](https://graphql.org/learn/pagination/) with support for related metadata via a GraphQL server.
+2- Standardize the way those patterns are exposed. This is especially important for public APIs.
+
+### Tasks
+
+- [ ] 3. Create a DiscountConnection type. 🕵️‍♀️ Hint, it's very similar to the TrainingConnection.
+- [ ] 4. Create a DiscountEdge type. 🕵️‍♀️ Hint, it's very similar to the TrainingEdge.
+- [ ] 5. Do you need to create another PageInfo type?
+- [ ] 6. Replace the Query type field `discounts: [Discount!]` with your connection. You know it works because the following query will work:
+
+```graphql
+query {
+  discounts {
+    edges {
+      cursor
+      node {
+        id
+        code
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+  }
+}
+```
+
+🤔 Some thoughts about this exercise:
+
+Some implementations of this spec suffix the field with "Connection", example discountsConnection. However, from the official [GraphQL documentation](https://graphql.org/learn/pagination/#plurals):
+
+> The simplest way to expose a connection between objects is with a field that returns a plural type.
+
+GraphQL is a strongly typed query language, which means it probably doesn't make much sense to embed the `type` on the field name.
 
 #### 🏋️‍♀️ Bonus exercise part 2
 
-Congratulations, you've completed part 2! You've learned how to create object types in GraphQL and add fields to them using scalar types (`String`,`Int`, `ID`) or your own object types (`Training`, `Discount`). You've also learned how to create a relationship between two object types.
+A) Add a field to the Training type called "discounts" that returns a "connection" of discounts.
 
-In GraphQL you can also create your custom scalars types, like [Date](https://graphql.org/learn/schema/#scalar-types).
+B) Would it make sense to do the same from Discount to Training?
 
-Bonus task, add a field called `startDate` to the `Training` object type using a `DateTime` scalar type. GraphQL doesn't provide a DateTime type. Instead of creating a custom `DateTime` scalar type you are going to use [https://github.com/excitement-engineer/graphql-iso-date](https://github.com/excitement-engineer/graphql-iso-date). Note, the package is already installed in package.json.
-
-## Exercise part 3
+## Exercise part 3 - Extending the GraphQL Cursor Connections Specification
 
 ### 🥑 Before we start
 
-Resolvers are functions that have 4 arguments `(parent, args, context, info)`. In this exercise, we are only going to use the first 2 arguments: `parent` and `args`.
+We can extend the "Connections" to accomodate particular use cases. One example is the `totalCount` field we added to the `TrainingConnection` type.
 
-#### The first argument of the resolver
+To complete this exercise you'll use [GraphQL input types](https://graphql.org/learn/schema/#input-types). Input types are not only used for mutations but also to pass complex objects to our queries.
 
-The first argument, often called `parent`, points to the parent object. For instance, we could override the default resolver of the title field in the Training and return an upper case version of the title.
-
-⚠️ Trainer implements:
-
-```js
-const resolvers = {
-  Query: {
-    //...
-  },
-  Training: {
-    title: (parent) {
-      return parent.title.toUpperCase()
-    }
-  }
-};
-```
-
-We could also create a new field that returns the upper case version of the title without changing the title field. Example:
-
-⚠️ Learners implement (⏳ only 5 minutes to implement and write a query to test it!):
-
-```graphql
-type Training {
-  title: String!
-  upperCaseTitle: String!
-  # the rest remains the same
-}
-```
-
-```js
-const resolvers = {
-  Query: {
-    //...
-  },
-  Training: {
-    upperCaseTitle: (parent) {
-      return parent.title.toUpperCase()
-    }
-  }
-};
-```
-
-🏋️‍♀️Bonus exercise, return all the URLs of the discounts field in upper case.
-
-#### The second argument of the resolver
-
-The second argument of the resolver (we are calling it `args`) points to the arguments passed to the field. In the following example `args` contains `id`:
-
-```js
-const schema = gql`
-  type Query {
-    author(id: ID!): Author
-  }
-`;
-const resolvers = {
-  Query: {
-    author(parent, args) {
-      console.log(args); // { id: 3 } based on the query below
-    },
-  },
-};
-```
-
-```graphql
-query authorName {
-  author(id: 3) {
-    name
-  }
-}
-```
+The goal of this exercise it to add filtering and sorting to our `discounts` connection. Notice the service.findDiscounts is ready to handle our schema modifications. You'll only need to edit this file `src/schema.js`
 
 ### Tasks
 
-To complete the tasks you'll use the helper functions that are at the bottom of the file `src/index.js`
-
-- [ ] 4. Implement a new field in the `Query` type that returns a single training given an id. You need to fetch the training from this endpoint `https://api.reactgraphql.academy/rest/trainings/` + `id`. 🕵️‍♂️ Hint, you need to pass [arguments](https://graphql.org/graphql-js/passing-arguments/) to the field, and then use the second argument in the resolver. There is a helper function at the bottom of `src/index.js`.
-
-Once implemented you should be able to run the following query:
-
-```graphql
-query getTraining {
-  training(id: "tra:22") {
-    title
-  }
-}
-```
-
-- [ ] 5. Create the following relationship between the Training type and the Discount type in your schema:
+- [ ] 7. We want to be able to filter discounts by training ID. Modify `DiscountFilter` to include the field `trainingId`. You need to add the type to each field of the input type, [example](https://graphql.org/learn/schema/#input-types).
+- [ ] 8. Add a field `code` to the `DiscountOrderField` type.
+- [ ] 9. Edit the type `DiscountOrder` and add the right types to each field.
+- [ ] 10. Update the field `discounts` in the `Query` type to include all the connection [arguments](https://relay.dev/graphql/connections.htm#sec-Arguments). 🕵️‍♀️ Hint, it's **very similar** to the `trainings` field in the `Query` type. You'll now it works when the following query works:
 
 ```graphql
-type Training {
-  discounts: [Discount]
-  # the rest of the fields remain the same
-}
-```
-
-- You need to add a `Training` key in the resolvers object and an object with a `discounts` key in `Training`. Similar to the Author type and books field in the [Apollo documentation](https://www.apollographql.com/docs/apollo-server/essentials/data#resolver-map)
-- You need to use the **first argument of the resolver**: the 'parent'. In this case, the parent of the `discounts` field is the `Training`. `parent.discounts` gives you the array of URLs that you can use to fetch each discount from the REST API.
-- You can use the helper function `fetchDiscountByUrl` defined at the bottom of this file `src/index.js`.
-- Heads up! We want our Training type to have a field called `discounts` that returns an array of `Discount` types not an array of `String`
-- Once implemented, you should be able to run the following query:
-
-```graphql
-query getTraining {
-  training(id: "tra:22") {
-    title
-    discounts {
-      code
-    }
-  }
-}
-```
-
-#### 🏋️‍♀️ Bonus exercise part 3
-
-Create the types and resolvers so the following query works:
-
-```graphql
-query getDangerousDiscount {
-  discount(id: "dis:421") {
-    code
-    training {
-      title
-      discounts {
+query {
+  discounts(
+    filter: { trainingId: "5e934e68e06e3d37d8f21b5b" }
+    orderBy: { field: code, direction: DESC }
+  ) {
+    totalCount
+    edges {
+      node {
+        id
         code
-        # why this query could be dangerous?
       }
     }
   }
 }
 ```
 
-Bonus final questions:
+🤔 Some thoughts about this exercise:
 
-- Once the getDangerousDiscount query is implemented, do you see any problem/ vulnerability issues on that query?
-- Should the relationship Discount to Training be non-nullable? Meaning `training: Training` or `training: Training!`
+Some APIs expose a field called `filter` (for instance, [Gatsby](https://www.gatsbyjs.org/docs/graphql-reference/#filter) or GitHub) and others call it `where` (for instance, [Hasura](https://hasura.io/docs/1.0/graphql/manual/queries/query-filters.html)). Either case, it'll be up to you to do define the capabilities (e.g. [OR/ AND operators](https://github.com/graphql/graphql-js/issues/585#issuecomment-262402544)) of that field given your specific use cases.
 
-🤸🏾Do you want some extra workout? Create an [enumeration](https://graphql.org/learn/schema/#enumeration-types) for the languages. Add field language to the Training object type that uses the language enum.
+#### 🏋️‍♀️ Bonus exercise part 3
 
-## 🧘‍♀️Homework
+Update the schema so we can run the following queries:
 
-You are going to build a GraphQL API on top of an existing REST API. Steps:
+```graphql
+query future {
+  trainings(
+    filter: { startDate: future }
+    orderBy: { field: title, direction: DESC }
+  ) {
+    totalCount
+    edges {
+      node {
+        id
+        code
+      }
+    }
+  }
+}
+```
 
-1- Choose a public API. You have a list of public APIs [here](https://github.com/public-apis/public-apis). Suggestion, choose an API that doesn't require authentication and has decent documentation.
+```graphql
+query past {
+  trainings(
+    filter: { startDate: past }
+    orderBy: { field: objectives, direction: DESC }
+  ) {
+    totalCount
+    edges {
+      node {
+        id
+        code
+      }
+    }
+  }
+}
+```
 
-2- Create a GraphQL server to validate and execute the GraphQL queries. You can get started using the [getting started tutorial](https://www.apollographql.com/docs/apollo-server/getting-started/) from Apollo Server.
+## Exercise part 4 - Interfaces, Fragments, and the Global Object Identification
 
-3- Create the GraphQL schema using the [Schema Definition Language (SDL)](https://www.prisma.io/blog/graphql-sdl-schema-definition-language-6755bcb9ce51) . You'll define types and relationships between those types.
+> Consistent object access enables simple caching and object lookups
 
-4- Add the resolvers to your schema. We are following a SDL-first approach to build our schema. It's the most popular approach in the GraphQL JavaScript community, but be aware that it's not the only one. You can read more about it and other alternatives in this [article](https://www.prisma.io/blog/the-problems-of-schema-first-graphql-development-x1mn4cb0tyl3).
+https://graphql.org/learn/global-object-identification/
 
-## Articles and links
-
-- http://graphql.org/learn/
-- http://graphql.org/learn/thinking-in-graphs/
-- https://dev-blog.apollodata.com/graphql-vs-rest-5d425123e34b
-- https://dev-blog.apollodata.com/graphql-explained-5844742f195e
-- https://facebook.github.io/relay/docs/thinking-in-graphql.html
-- https://dev-blog.apollodata.com/the-anatomy-of-a-graphql-query-6dffa9e9e747
-- https://github.com/apollographql/apollo-server
-- https://www.youtube.com/watch?v=PHabPhgRUuU
-- https://facebook.github.io/relay/graphql/connections.htm
-- https://dev-blog.apollodata.com/introducing-launchpad-the-graphql-server-demo-platform-cc4e7481fcba
-- https://dev-blog.apollodata.com/
-- http://dev.apollodata.com
-- https://astexplorer.net/
+- [ ] 1. Given
 
 ## License
 

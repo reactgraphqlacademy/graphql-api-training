@@ -11,12 +11,14 @@ const trainings = [
     _id: ObjectId("5e934e68e06e3d37d8f21b5b"),
     title: "React Fundamentals",
     objectives: "learning basics of react",
+    startDate: "2030-04-15 16:30:00.000Z",
     curriculum:
       "-Thinking in React, Modern JavaScript, Routing & Data Fetching\n-Forms, Authentication, and Hooks\n-Redux Fundamentals, deployment to production",
   },
   {
     _id: ObjectId("5e93550ee06e3d37d8f35e31"),
     title: "Advanced React",
+    startDate: "2030-05-15 16:30:00.000Z",
     objectives:
       "Solve real-world problems when building production-ready React apps",
     curriculum:
@@ -25,6 +27,7 @@ const trainings = [
   {
     _id: ObjectId("5e93558ae06e3d37d8f3705f"),
     title: "React Bootcamp",
+    startDate: "2010-06-15 16:30:00.000Z",
     objectives:
       "Build a solid foundation in React to master advanced real-world React",
     curriculum:

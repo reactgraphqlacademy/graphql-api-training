@@ -1,11 +1,12 @@
 const { gql } = require("apollo-server-express");
 const { fromGlobalId, toGlobalId } = require("graphql-relay");
 const { GraphQLDateTime } = require("graphql-iso-date");
+const fetch = require("node-fetch");
 
 const typeDefs = gql`
-  interface Node {
-    id: ID!
-  }
+  #   interface Node {
+  #     id: ID!
+  #   }
 
   type PageInfo {
     hasNextPage: Boolean!
@@ -14,53 +15,44 @@ const typeDefs = gql`
     endCursor: String
   }
 
-  type Training implements Node {
+  # type Training implements Node {
+  type Training {
     id: ID!
     title: String!
     objectives: String!
     curriculum: String!
     overview: String
-    discounts: [Discount]
     startDate: DateTime
-    language: Language
   }
 
   type TrainingEdge {
+    # https://relay.dev/graphql/connections.htm#sec-Node
     node: Training
+    # https://relay.dev/graphql/connections.htm#sec-Cursor
     cursor: String!
   }
 
   type TrainingConnection {
+    # https://relay.dev/graphql/connections.htm#sec-Connection-Types.Fields.PageInfo
     pageInfo: PageInfo!
+    # https://relay.dev/graphql/connections.htm#sec-Edges
     edges: [TrainingEdge]
-    # total count is not part of GraphQL Cursor Spec, but we can extend the spec
+    # total count is not part of GraphQL Cursor Connection Spec, but we can extend the spec
     totalCount: Int
   }
 
   type Discount {
     id: ID!
-    training: Training
     code: String!
     discountPercentage: Int!
     description: String
     expiresOn: DateTime
   }
 
-  type DiscountEdge {
-    node: Discount
-    cursor: String!
-  }
-
-  type DiscountConnection {
-    pageInfo: PageInfo!
-    edges: [DiscountEdge]
-    # total count is not part of GraphQL Cursor Spec, but we can extend the spec
-    totalCount: Int
-  }
-
-  input DiscountFilter {
-    trainingId: ID
-  }
+  # 🚧 You must use this input
+  #   input DiscountFilter {
+  #     # 🚧 You must add something here
+  #   }
 
   enum OrderDirection {
     # Specifies an ascending order for a given orderBy argument.
@@ -71,34 +63,18 @@ const typeDefs = gql`
 
   enum DiscountOrderField {
     expiresOn
-    code
     discountPercentage
+    # 🚧 You must add something here
   }
 
   input DiscountOrder {
-    field: DiscountOrderField
-    direction: OrderDirection
+    field: String # 🚧 this field is not a String, add the right type.
+    direction: String # 🚧 this field is not a String, add the right type.
   }
 
   scalar DateTime
 
-  enum Language {
-    EN
-    ES
-    FR
-    IT
-    PT
-    NL
-    DE
-    ZH
-    JA
-    RU
-  }
-
   type Query {
-    node(id: ID!): Node
-
-    # trainings: [Training!]
     trainings(
       after: String
       first: Int
@@ -108,15 +84,7 @@ const typeDefs = gql`
 
     training(id: ID!): Training
 
-    # discounts: [Discount!]
-    discounts(
-      after: String
-      first: Int
-      before: String
-      last: Int
-      filter: DiscountFilter
-      orderBy: DiscountOrder
-    ): DiscountConnection
+    discounts: [Discount!]
 
     discount(id: ID!): Discount
   }
@@ -124,50 +92,25 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    node: (_, { id }, { services: { getObjectById } }) =>
-      getObjectById(fromGlobalId(id)),
-    trainings: (_, args, { services: { findTrainings } }) =>
-      findTrainings(args),
-    discounts: (_, args, { services: { findDiscounts } }) =>
-      findDiscounts(args),
-    training: (_, { id }, { services: { findTrainingById } }) =>
-      findTrainingById(id),
-    discount: (_, { id }, { services: { findDiscountById } }) =>
-      findDiscountById(id),
-  },
-  //   Node: {
-  //     // https://www.apollographql.com/docs/graphql-tools/resolvers/#unions-and-interfaces
-  //     __resolveType(obj) {
-  //       if (obj.trainingId) {
-  //         return "Discount";
-  //       }
-  //       if (obj.curriculum) {
-  //         return "Training";
-  //       }
+    trainings: (_, args, { services }) => services.findTrainings(args),
 
-  //       return null;
-  //     },
-  //   },
-  Node: {
-    // If possible, it's better to return the typename from the data source
-    // We implement it using mongoose virtuals
-    __resolveType(obj) {
-      return obj.__typename;
-    },
-  },
-  OrderDirection: {
-    DESC: -1,
-    ASC: 1,
-  },
-  Discount: {
-    training: (parent, _, { services: { findTrainingById } }) =>
-      findTrainingById(parent._trainingId),
-  },
-  Training: {
-    // id: (parent) => toGlobalId("Training", parent._id),
-    // an alternative to overriding the default resolver for the `id` field we can move the toGlobalId to the data source. See Training model id virtual
-    discounts: ({ id }, _, { services: { findDiscountsByTrainingId } }) =>
-      findDiscountsByTrainingId(id),
+    training: (_, { id }) =>
+      // 🕵️‍♀️ hint, use services.findTrainingById
+      fetch(`https://api.reactgraphql.academy/rest/trainings/${id}`)
+        .then((res) => res.json())
+        .catch((error) => console.log(error)),
+
+    discounts: (_) =>
+      // 🕵️‍♀️ hint, use services.findDiscounts
+      fetch("https://api.reactgraphql.academy/rest/discounts/")
+        .then((res) => res.json())
+        .catch((error) => console.log(error)),
+
+    discount: (_, { id }) =>
+      // 🕵️‍♀️ hint, use services.findDiscountById
+      fetch(`https://api.reactgraphql.academy/rest/discounts/${id}`)
+        .then((res) => res.json())
+        .catch((error) => console.log(error)),
   },
   DateTime: GraphQLDateTime,
 };

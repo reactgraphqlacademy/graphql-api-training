@@ -3,10 +3,28 @@ const { mrResolve } = require("mongo-relay-connection");
 const { TRAINING_TYPENAME } = require("./db/models/training");
 const { DISCOUNT_TYPENAME } = require("./db/models/discount");
 const { resolveId } = require("./db/utils");
-// const fetch = require("node-fetch");
+
+function getObjectById({ type, id }) {
+  const types = {
+    [TRAINING_TYPENAME]: findTrainingById,
+    [DISCOUNT_TYPENAME]: findDiscountById,
+  };
+
+  return types[type](id);
+}
 
 function findTrainings(args = {}) {
-  return mrResolve(args, db.models.Training);
+  const { field, direction } = args.orderBy || {};
+  const orderBy =
+    field && direction ? { cursorField: field, direction } : undefined;
+  let query = {};
+  if (filter.startDate === "future") {
+    query.startDate = { $gte: new Date() };
+  } else if (filter.startDate === "past") {
+    query.startDate = { $lt: new Date() };
+  }
+
+  return mrResolve(args, db.models.Training, query, orderBy);
 }
 
 function findTrainingById(id) {
@@ -14,7 +32,6 @@ function findTrainingById(id) {
 }
 
 function findDiscounts({ filter = {}, ...args } = {}) {
-  // return db.models.Discount.find();
   const { field, direction } = args.orderBy || {};
   const orderBy =
     field && direction ? { cursorField: field, direction } : undefined;
@@ -34,60 +51,12 @@ function findDiscountsByTrainingId(trainingId) {
   return db.models.Discount.find({ _trainingId: trainingId });
 }
 
-function getObjectById({ type, id }) {
-  const types = {
-    [TRAINING_TYPENAME]: findTrainingById,
-    [DISCOUNT_TYPENAME]: findDiscountById,
-  };
-
-  return types[type](id);
-}
-
 module.exports = {
   findTrainings,
   findTrainingById,
   findDiscounts,
-  // findTrainingByUrl,
   findDiscountById,
   findDiscountById,
-  // findDiscountByUrl,
   findDiscountsByTrainingId,
   getObjectById,
 };
-
-// function findTrainings() {
-//   // More info about the fetch function? https://github.com/bitinn/node-fetch#json
-//   return fetch("https://api.reactgraphql.academy/rest/trainings/")
-//     .then((res) => res.json())
-//     .catch((error) => console.log(error));
-// }
-
-// function findTrainingById(id) {
-//   return fetch(`https://api.reactgraphql.academy/rest/trainings/${id}`)
-//     .then((res) => res.json())
-//     .catch((error) => console.log(error));
-// }
-
-// function findDiscounts() {
-//   return fetch("https://api.reactgraphql.academy/rest/discounts/")
-//     .then((res) => res.json())
-//     .catch((error) => console.log(error));
-// }
-
-// function findTrainingByUrl(url) {
-//   return fetch(url)
-//     .then((res) => res.json())
-//     .catch((error) => console.log(error));
-// }
-
-// function findDiscountById(id) {
-//   return fetch(`https://api.reactgraphql.academy/rest/discounts/${id}`)
-//     .then((res) => res.json())
-//     .catch((error) => console.log(error));
-// }
-
-// function findDiscountByUrl(url) {
-//   return fetch(url)
-//     .then((res) => res.json())
-//     .catch((error) => console.log(error));
-// }
