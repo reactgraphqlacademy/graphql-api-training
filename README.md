@@ -201,6 +201,33 @@ https://graphql.org/learn/global-object-identification/
 
 The goal of this exercise is to implement [Global Object Identification](https://relay.dev/graphql/objectidentification.htm). Why is this specification important? Some GraphQL clients, like [Relay](https://relay.dev/docs/en/graphql-server-specification.html#object-identification), require it to be implemented on the GraphQL server in order to be compliant.
 
+### 🥑 Before we start
+
+#### Interfaces
+
+An [Interface](https://graphql.org/learn/schema/#interfaces) is an abstract type that includes a certain set of fields that a type must include to implement the interface.
+
+#### Inline Fragment
+
+If you are querying a field that returns an interface (or a union type), you will need to use [inline fragments](<(https://graphql.org/learn/queries/#inline-fragments)>) to access data on the underlying concrete type
+
+#### Real-world Example
+
+The [GitHub API V4](https://developer.github.com/v4/explorer/) implements the Global Object Identification. Let me show you:
+
+```graphql
+query {
+  node(id: "MDEwOlJlcG9zaXRvcnkyMjM0NTM3NTU=") {
+    id
+    ... on Repository {
+      name
+    }
+  }
+}
+```
+
+### Tasks
+
 - [ ] 12. Add the following Node interface to your schema
 
 ```graphql
@@ -216,7 +243,10 @@ interface Node {
 node(id: ID!): Node
 ```
 
-- [ ] 14. Implement the resolver for the `node` field in the `Query` type. Use the getObjectById function from `src/services.js` to resolve the Node (you'll finish the implementation of the getObjectById in the next task).
+- [ ] 14. Implement the resolver for the `node` field in the `Query` type. You need to use two things:
+
+  - [ ] 14.1 Use the `getObjectById` function from `src/services.js` to resolve the Node (you'll finish the implementation of the getObjectById in the next task).
+  - [ ] 14.2 Use the `fromGlobalId` function to get
 
 - [ ] 15. Finish the implemention of the getObjectById function in `src/services.js`. This function receives two arguments: `type` and `id`, and it invokes the function that retrieves the object based on its id.
 
