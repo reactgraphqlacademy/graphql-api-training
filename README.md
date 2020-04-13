@@ -87,13 +87,29 @@ query {
 }
 ```
 
+- [ ] 7. Update the field `discounts` in the `Query` type to include all the connection [arguments](https://relay.dev/graphql/connections.htm#sec-Arguments). 🕵️‍♀️ Hint, it's **very similar** to the `trainings` field in the `Query` type. You know it works because the arguments `first`, `last`, `after`, and `before` should work. Example:
+
+```graphql
+query {
+  discounts(first: 2) {
+    edges {
+      cursor
+      node {
+        id
+        code
+      }
+    }
+  }
+}
+```
+
 🤔 Some thoughts about this exercise:
 
 Some implementations of this spec suffix the field with "Connection", example discountsConnection. However, from the official [GraphQL documentation](https://graphql.org/learn/pagination/#plurals):
 
 > The simplest way to expose a connection between objects is with a field that returns a plural type.
 
-GraphQL is a strongly typed query language, which means it probably doesn't make much sense to embed the `type` on the field name.
+GraphQL is a strongly typed query language, which means it probably doesn't make much sense to include the `type` on the field name.
 
 #### 🏋️‍♀️ Bonus exercise part 2
 
@@ -113,10 +129,10 @@ The goal of this exercise it to add filtering and sorting to our `discounts` con
 
 ### Tasks
 
-- [ ] 7. We want to be able to filter discounts by training ID. Modify `DiscountFilter` to include the field `trainingId`. You need to add the type to each field of the input type, [example](https://graphql.org/learn/schema/#input-types).
-- [ ] 8. Add a field `code` to the `DiscountOrderField` type.
-- [ ] 9. Edit the type `DiscountOrder` and add the right types to each field.
-- [ ] 10. Update the field `discounts` in the `Query` type to include all the connection [arguments](https://relay.dev/graphql/connections.htm#sec-Arguments). 🕵️‍♀️ Hint, it's **very similar** to the `trainings` field in the `Query` type. You'll now it works when the following query works:
+- [ ] 8. We want to be able to filter discounts by training ID. Modify `DiscountFilter` to include the field `trainingId`. You need to add the type to each field of the input type, [example](https://graphql.org/learn/schema/#input-types).
+- [ ] 9. Add a field `code` to the `DiscountOrderField` type.
+- [ ] 10. Edit the type `DiscountOrder` and add the right types to each field.
+- [ ] 11. Update the field `discounts` in the `Query` type to include the `filter` and `orderBy` arguments. Once implemented, the following query should work.
 
 ```graphql
 query {
@@ -185,7 +201,7 @@ https://graphql.org/learn/global-object-identification/
 
 The goal of this exercise is to implement [Global Object Identification](https://relay.dev/graphql/objectidentification.htm). Why is this specification important? Some GraphQL clients, like [Relay](https://relay.dev/docs/en/graphql-server-specification.html#object-identification), require it to be implemented on the GraphQL server in order to be compliant.
 
-- [ ] 1. Add the following Node interface to your schema
+- [ ] 12. Add the following Node interface to your schema
 
 ```graphql
 interface Node {
