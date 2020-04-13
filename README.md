@@ -59,8 +59,9 @@ Note, using the authScope in the resolvers is not in the scope of this exercise.
 ### 🥑 Before we start
 
 There are two reasons for which you might want to use the [GraphQL Cursor Connections Specification](https://relay.dev/graphql/connections.htm):
-1- Provide an option for GraphQL clients to consistently handle [pagination best practices](https://graphql.org/learn/pagination/) with support for related metadata via a GraphQL server.
-2- Standardize the way those patterns are exposed. This is especially important for public APIs.
+
+1. Provide an option for GraphQL clients to consistently handle [pagination best practices](https://graphql.org/learn/pagination/) with support for related metadata via a GraphQL server.
+2. Standardize the way those patterns are exposed. This is especially important for public APIs.
 
 ### Tasks
 
