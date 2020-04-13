@@ -6,8 +6,8 @@ const { resolveId } = require("./db/utils");
 
 function getObjectById({ type, id }) {
   const types = {
-    [TRAINING_TYPENAME]: findTrainingById,
-    [DISCOUNT_TYPENAME]: findDiscountById,
+    Discount: findDiscountById
+    // 🚧 You must add here a key for the Training type and the function that resolves the object given its id
   };
 
   return types[type](id);
@@ -58,5 +58,5 @@ module.exports = {
   findDiscountById,
   findDiscountById,
   findDiscountsByTrainingId,
-  getObjectById,
+  getObjectById
 };

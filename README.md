@@ -209,13 +209,41 @@ interface Node {
 }
 ```
 
-- [ ] 2. Add the following field to the `Query` type
+- [ ] 12. The `Training` and `Discount` types should implement the Node interface. More on how to implement an interface in GraphQL [here](https://graphql.org/learn/schema/#interfaces).
+- [ ] 13. Add the following field to the `Query` type (you'll add its resolver in the next task)
 
 ```graphql
 node(id: ID!): Node
 ```
 
-- [ ] 2. The `Training` and `Discount` types should implement the interface. More on how to implement an interface in GraphQL [here](https://graphql.org/learn/schema/#interfaces).
+- [ ] 14. Implement the resolver for the `node` field in the `Query` type. Use the getObjectById function from `src/services.js` to resolve the Node (you'll finish the implementation of the getObjectById in the next task).
+
+- [ ] 15. Finish the implemention of the getObjectById function in `src/services.js`. This function receives two arguments: `type` and `id`, and it invokes the function that retrieves the object based on its id.
+
+- [ ] 16. You should get this error 'TODO ADD ERROR' when running the following query:
+
+```graphql
+query {
+  node(id: "TODO ADD ID") {
+    id
+  }
+}
+```
+
+To fix the error, add a resolver for the Node type that implements the `__resolveType(obj){} function`. You can check the \_\_resolveType in the [Apollo documentation](https://www.apollographql.com/docs/apollo-server/schema/unions-interfaces/#interface-type). In this case, to infer the types you can consider that if the object has a `title` key, then it's a `Training` type. If the object has a `code` key, then the object is a `Discount` type. You'll know it works when you can run the following query:
+
+```graphql
+query {
+  node(id: "") {
+    id
+  }
+}
+```
+
+- [ ] show alternative with mongoose virtuals
+- [ ] 16. fromGlobalId used in resolveId???
+- [ ] 17. extend the id field in the types to use use toGlobalId
+  - [ ] 17.1 Show alternative with mongoose virtuals
 
 ## License
 
