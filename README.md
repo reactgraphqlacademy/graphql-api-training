@@ -31,7 +31,11 @@ This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy
 ```graphql
 query {
   trainings {
-    id
+    edges {
+      node {
+        id
+      }
+    }
   }
 }
 ```
