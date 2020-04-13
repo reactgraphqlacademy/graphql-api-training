@@ -3,9 +3,9 @@ const { fromGlobalId } = require("graphql-relay");
 function resolveId(id) {
   const { id: localId } = fromGlobalId(id) || {};
 
-  return localId;
+  return id && !localId ? id : localId;
 }
 
 module.exports = {
-  resolveId,
+  resolveId
 };
