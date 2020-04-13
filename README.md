@@ -1,12 +1,12 @@
 # GraphQL API Fundamentals
 
-This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy) learning material. The goal of the exercise is to learn how to implement [GraphQL Cursor Connections Specification](https://relay.dev/graphql/connections.htm).
+This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy) learning material. The goal of the exercise is to learn how to implement the [GraphQL Cursor Connections Specification](https://relay.dev/graphql/connections.htm) and the [GraphQL Global Object Identification Specification](https://relay.dev/graphql/objectidentification.htm).
 
 ## Learning objectives
 
 - Understand the advantages of using the GraphQL Cursor Connections Specification
-- Learn how to implement in JavaScrip a GraphQL API compliant with the specification
-- Learn how to extend the implementation of the GraphQL Cursor Connections Specification and add things such as filters or total count.
+- Learn how to implement in JavaScript a GraphQL API compliant with the specification
+- Learn how to extend the implementation of the spec and add things such as filters or a total count.
 
 ## To get started
 
