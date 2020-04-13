@@ -18,7 +18,7 @@ This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy
 
 ## Exercise part 1 - Context
 
-### 🥑 Before we start
+### 🥑 Before we start the exercise
 
 - ⚠️ Don't forget to checkout the `relay-v2` branch, install the dependencies, and let me walk you through the code meanwhile.
 - This exercise builds on top of [the fundamentals branch](https://github.com/reactgraphqlacademy/graphql-api-training/tree/fundamentals-v2)
@@ -56,7 +56,7 @@ Note, using the authScope in the resolvers is not in the scope of this exercise.
 
 ## Exercise part 2 - GraphQL Cursor Connections Specification
 
-### 🥑 Before we start
+### 🥑 Before we start the exercise
 
 There are two reasons for which you might want to use the [GraphQL Cursor Connections Specification](https://relay.dev/graphql/connections.htm):
 
@@ -68,7 +68,7 @@ There are two reasons for which you might want to use the [GraphQL Cursor Connec
 - [ ] 3. Create a DiscountConnection type. Hint, it's very similar to the TrainingConnection.
 - [ ] 4. Create a DiscountEdge type. Hint, it's very similar to the TrainingEdge.
 - [ ] 5. Do you need to create another PageInfo type?
-- [ ] 6. Replace the Query type field `discounts: [Discount!]` with your connection. You know it works because the following query will work:
+- [ ] 6. Replace the Query type field `discounts: [Discount!]` with your connection. You know it works because the following query will return data:
 
 ```graphql
 query {
@@ -112,23 +112,23 @@ Some implementations of this spec suffix the field with "Connection", example di
 
 > The simplest way to expose a connection between objects is with a field that returns a plural type.
 
-GraphQL is a strongly typed query language, which means it probably doesn't make much sense to include the `type` on the field name.
+GraphQL is a **strongly typed** query language, which means it probably doesn't make much sense to include the `type` on the field name.
 
 #### 🏋️‍♀️ Bonus exercise part 2
 
-A) Add a field to the Training type called "discounts" that returns a "connection" of discounts.
+A) Add a field to the Training type called `discounts` that returns a "connection" of discounts.
 
-B) Would it make sense to do the same from Discount to Training?
+B) Would it make sense to do the same from `Discount` to `Training`?
 
 ## Exercise part 3 - Extending the GraphQL Cursor Connections Specification
 
-### 🥑 Before we start
+### 🥑 Before we start the exercise
 
 We can extend the "Connections" to accomodate particular use cases. One example is the `totalCount` field we added to the `TrainingConnection` type.
 
-To complete this exercise you'll use [GraphQL input types](https://graphql.org/learn/schema/#input-types). Input types are not only used for mutations but also to pass complex objects to our queries.
+To complete the next exercise we'll use [GraphQL input types](https://graphql.org/learn/schema/#input-types). Input types are not only used for mutations but also to pass complex objects to our queries.
 
-The goal of this exercise it to add filtering and sorting to our `discounts` connection. Notice the service.findDiscounts is ready to handle our schema modifications. You'll only need to edit this file `src/schema.js`
+The goal of this exercise it to add filtering and sorting to our `discounts` connection. The service.findDiscounts is ready to handle our schema modifications. You'll only need to edit this file `src/schema.js`
 
 ### Tasks
 
@@ -202,9 +202,9 @@ query past {
 
 https://graphql.org/learn/global-object-identification/
 
-The goal of this exercise is to implement [Global Object Identification](https://relay.dev/graphql/objectidentification.htm). Why is this specification important? Some GraphQL clients, like [Relay](https://relay.dev/docs/en/graphql-server-specification.html#object-identification), require it to be implemented on the GraphQL server in order to be compliant.
+The goal of this exercise is to implement the [Global Object Identification](https://relay.dev/graphql/objectidentification.htm). Why is this specification important? Some GraphQL clients, like [Relay](https://relay.dev/docs/en/graphql-server-specification.html#object-identification), require it to be implemented on the GraphQL server in order to be compliant.
 
-### 🥑 Before we start
+### 🥑 Before we start the exercise
 
 #### Interfaces
 
