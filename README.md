@@ -212,7 +212,7 @@ An [Interface](https://graphql.org/learn/schema/#interfaces) is an abstract type
 
 #### Inline Fragment
 
-If you are querying a field that returns an interface (or a union type), you will need to use [inline fragments](https://graphql.org/learn/queries/#inline-fragments) to access data on the underlying concrete type
+If you are querying a field that returns an interface (or a union type), you will need to use [inline fragments](https://graphql.org/learn/queries/#inline-fragments) to access data on the underlying concrete type.
 
 #### Real-world Example
 
