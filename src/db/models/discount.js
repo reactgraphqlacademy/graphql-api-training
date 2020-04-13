@@ -9,32 +9,27 @@ const DiscountSchema = new mongoose.Schema({
   code: { type: String, required: true },
   discountPercentage: { type: Number, required: true },
   description: String,
-  expiresOn: Date,
+  expiresOn: Date
 });
 
 const DISCOUNT_TYPENAME = "Discount";
 
 // We use mongoose virtuals (https://mongoosejs.com/docs/guide.html#virtuals)
 // to return the __typename on each instance of this model
-DiscountSchema.virtual("__typename").get(function() {
-  return "Discount";
-});
+// DiscountSchema.virtual("__typename").get(function() {
+//   return "Discount";
+// });
 
-DiscountSchema.virtual("id").get(function() {
-  return toGlobalId(DISCOUNT_TYPENAME, this._id);
-});
+// DiscountSchema.virtual("id").get(function() {
+//   return toGlobalId(DISCOUNT_TYPENAME, this._id);
+// });
 
-DiscountSchema.virtual("trainingId")
-  .get(function() {
-    return toGlobalId(TRAINING_TYPENAME, this._trainingId);
-  })
-  .set(function(trainingId) {
-    // HEADS UP! this doesn't work with findOneAndUpdate https://github.com/Automattic/mongoose/issues/5643#issuecomment-600897964
-    this.set({ _trainingId: resolveId(trainingId) });
-  });
+// DiscountSchema.virtual("trainingId").get(function() {
+//   return toGlobalId(TRAINING_TYPENAME, this._trainingId);
+// });
 
 mongoose.model("Discount", DiscountSchema);
 
 module.exports = {
-  DISCOUNT_TYPENAME,
+  DISCOUNT_TYPENAME
 };

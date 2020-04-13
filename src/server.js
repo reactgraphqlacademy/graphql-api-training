@@ -8,31 +8,29 @@ const services = require("./services");
 function authScope(token) {
   return {
     id: "1",
-    role: "admin",
+    role: "admin"
   };
 }
 
 // We are using apollo-server-express to integrate our server with Cloud Functions using a middleware.
 // https://www.apollographql.com/docs/apollo-server/integrations/middleware/#applying-middleware
 module.exports = {
-  createServer: (options) => {
+  createServer: options => {
     const app = express();
     const apollo = new ApolloServer({
       typeDefs,
       resolvers,
       context: ({ req }) => ({
-        // 🔥🔥🔥 REMOVE THE NEXT LINE FOR THE EXERCISE 🔥🔥🔥
-        services,
         // 🚧 Task: add here the services imported at the top of the file
         // More info about the context in ApolloServer https://www.apollographql.com/docs/apollo-server/data/resolvers/#the-context-argument
       }),
-      ...options,
+      ...options
     });
     apollo.applyMiddleware({
       app,
-      path: `/`,
+      path: `/`
     });
 
     return app;
-  },
+  }
 };

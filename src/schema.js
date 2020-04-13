@@ -11,7 +11,7 @@ const typeDefs = gql`
     endCursor: String
   }
 
-  type Training {
+  type Training implements Node {
     id: ID!
     title: String!
     objectives: String!
@@ -36,7 +36,7 @@ const typeDefs = gql`
     totalCount: Int
   }
 
-  type Discount {
+  type Discount implements Node {
     id: ID!
     code: String!
     discountPercentage: Int!
@@ -63,13 +63,14 @@ const typeDefs = gql`
   }
 
   input DiscountOrder {
-    field: String # 🚧 this field is not a String, add the right type.
-    direction: String # 🚧 this field is not a String, add the right type.
+    field: String # 🚧 this field should not be a String, add the right type.
+    direction: String # 🚧 this field should not be a String, add the right type.
   }
 
   scalar DateTime
 
   type Query {
+    node(id: ID!): Node
     trainings(
       after: String
       first: Int
@@ -88,30 +89,29 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     trainings: (_, args, { services }) => services.findTrainings(args),
-
     training: (_, { id }) =>
       // 🕵️‍♀️ hint, use services.findTrainingById
       fetch(`https://api.reactgraphql.academy/rest/trainings/${id}`)
-        .then((res) => res.json())
-        .catch((error) => console.log(error)),
+        .then(res => res.json())
+        .catch(error => console.log(error)),
 
-    discounts: (_) =>
+    discounts: _ =>
       // 🕵️‍♀️ hint, use services.findDiscounts
       fetch("https://api.reactgraphql.academy/rest/discounts/")
-        .then((res) => res.json())
-        .catch((error) => console.log(error)),
+        .then(res => res.json())
+        .catch(error => console.log(error)),
 
     discount: (_, { id }) =>
       // 🕵️‍♀️ hint, use services.findDiscountById
       fetch(`https://api.reactgraphql.academy/rest/discounts/${id}`)
-        .then((res) => res.json())
-        .catch((error) => console.log(error)),
+        .then(res => res.json())
+        .catch(error => console.log(error))
   },
   DateTime: GraphQLDateTime,
   OrderDirection: {
     DESC: -1,
-    ASC: 1,
-  },
+    ASC: 1
+  }
 };
 
 module.exports = { typeDefs, resolvers };

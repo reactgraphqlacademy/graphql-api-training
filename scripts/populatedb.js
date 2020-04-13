@@ -13,7 +13,7 @@ const trainings = [
     objectives: "learning basics of react",
     startDate: "2030-04-15 16:30:00.000Z",
     curriculum:
-      "-Thinking in React, Modern JavaScript, Routing & Data Fetching\n-Forms, Authentication, and Hooks\n-Redux Fundamentals, deployment to production",
+      "-Thinking in React, Modern JavaScript, Routing & Data Fetching\n-Forms, Authentication, and Hooks\n-Redux Fundamentals, deployment to production"
   },
   {
     _id: ObjectId("5e93550ee06e3d37d8f35e31"),
@@ -22,7 +22,7 @@ const trainings = [
     objectives:
       "Solve real-world problems when building production-ready React apps",
     curriculum:
-      "-Advanced React patterns and performance.\n-GraphQL 101 & Real-World Testing in React.\n-Building a UI component library",
+      "-Advanced React patterns and performance.\n-GraphQL 101 & Real-World Testing in React.\n-Building a UI component library"
   },
   {
     _id: ObjectId("5e93558ae06e3d37d8f3705f"),
@@ -31,8 +31,8 @@ const trainings = [
     objectives:
       "Build a solid foundation in React to master advanced real-world React",
     curriculum:
-      "-Thinking in React, Modern JavaScript, Routing & Data Fetching\n-Forms, Authentication, and Hooks\n-Redux Fundamentals, deployment to production\n-Advanced React patterns and performance.\n-GraphQL 101 & Real-World Testing in React.\n-Building a UI component library",
-  },
+      "-Thinking in React, Modern JavaScript, Routing & Data Fetching\n-Forms, Authentication, and Hooks\n-Redux Fundamentals, deployment to production\n-Advanced React patterns and performance.\n-GraphQL 101 & Real-World Testing in React.\n-Building a UI component library"
+  }
 ];
 
 const codes = [
@@ -43,7 +43,7 @@ const codes = [
   "avocado",
   "spinach",
   "celery",
-  "blueberry",
+  "blueberry"
 ];
 const percentages = [5, 10, 20, 35];
 
@@ -53,10 +53,11 @@ for (let index = 1; index <= 10; index++) {
   const discountPercentage = randomItem(percentages);
   const randomTraining = randomItem(trainings);
   discounts.push({
+    ...(index === 1 ? { _id: ObjectId("5ce811c728bf226ebe872d71") } : {}),
     code: `${code}${discountPercentage}`,
     discountPercentage,
     expiresOn: new Date(), //"2017-12-31T07:00:00.000Z",
-    _trainingId: randomTraining._id,
+    _trainingId: randomTraining._id
   });
 }
 

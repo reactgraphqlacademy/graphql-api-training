@@ -245,35 +245,105 @@ node(id: ID!): Node
 
 - [ ] 14. Implement the resolver for the `node` field in the `Query` type. You need to use two things:
 
-  - [ ] 14.1 Use the `getObjectById` function from `src/services.js` to resolve the Node (you'll finish the implementation of the getObjectById in the next task).
-  - [ ] 14.2 Use the `fromGlobalId` function to get
-
-- [ ] 15. Finish the implemention of the getObjectById function in `src/services.js`. This function receives two arguments: `type` and `id`, and it invokes the function that retrieves the object based on its id.
-
-- [ ] 16. You should get this error 'TODO ADD ERROR' when running the following query:
+  - [ ] 14.1 Use the `fromGlobalId` function (imported from `graphql-relay` at the top of the file) to get the "local" id before resolving the object.
+  - [ ] 14.2 Use the `getObjectById` function from `services` to resolve the `node` field in the `Query` type. You can move to the next task when you get this error "Abstract type Node must resolve to an Object type at runtime for field Query.node with value { \_id: [ObjectID], title: \"Advanced React\", objectives: ... " when running the following query:
 
 ```graphql
 query {
-  node(id: "TODO ADD ID") {
-    id
+  node(id: "VHJhaW5pbmc6NWU5MzU1MGVlMDZlM2QzN2Q4ZjM1ZTMx") {
+    ... on Training {
+      title
+    }
   }
 }
 ```
 
-To fix the error, add a resolver for the Node type that implements the `__resolveType(obj){} function`. You can check the \_\_resolveType in the [Apollo documentation](https://www.apollographql.com/docs/apollo-server/schema/unions-interfaces/#interface-type). In this case, to infer the types you can consider that if the object has a `title` key, then it's a `Training` type. If the object has a `code` key, then the object is a `Discount` type. You'll know it works when you can run the following query:
+- [ ] 15. To fix the "Abstract type Node must resolve to an Object type at runtime" error, add a resolver for the Node type that implements the `__resolveType(obj){} function`. You can check the `__resolveType` in the [Apollo documentation](https://www.apollographql.com/docs/apollo-server/schema/unions-interfaces/#interface-type). In this case, to infer the types you can consider that if the object has a `title` key, then it's a `Training` type. If the object has a `code` key, then the object is a `Discount` type. You'll know it works when you get `"title": "Advanced React"` when running the following query:
 
 ```graphql
 query {
-  node(id: "") {
-    id
+  node(id: "VHJhaW5pbmc6NWU5MzU1MGVlMDZlM2QzN2Q4ZjM1ZTMx") {
+    ... on Training {
+      title
+    }
   }
 }
 ```
 
-- [ ] show alternative with mongoose virtuals
-- [ ] 16. fromGlobalId used in resolveId???
-- [ ] 17. extend the id field in the types to use use toGlobalId
-  - [ ] 17.1 Show alternative with mongoose virtuals
+- [ ] 16. Override the default resolver for the `id` field in the `Training` type so it returns a global ID. Use the `toGlobalId` function for that (already imported from `graphql-rely` at the top of `src/schema.js`). You'll know it probably works because the following query will return ids in this format `VHJhaW5pbmc6NWU5MzRlNjhlMDZlM2QzN2Q4ZjIxYjVi` instead of `5e934e68e06e3d37d8f21b5b`:
+
+```graphql
+query {
+  trainings {
+    edges {
+      node {
+        id
+      }
+    }
+  }
+}
+```
+
+To check that it really works, use any of the ids from the previous query (the id should look similar to this `sum6NWU5MzRlNjhlMDU5MzRlNjhlM2QzN2Q4Zj__dont_use_this_one_😜`) in the following query.
+
+```graphql
+query {
+  node(id: "🔥PUT_A_TRAINING_ID_HERE🔥") {
+    ... on Training {
+      title
+    }
+  }
+}
+```
+
+If it works it should return some title.
+
+- [ ] 15.1 Finish the implemention of the `getObjectById` function in `src/services.js`. This function receives two arguments: `type` and `id`, and it invokes the function that retrieves the object based on its id. You need to add a key for `Discount` and its "get by id" function.
+- [ ] 15.2 Override the default resolver for the `id` field in the `Discount` type so it returns a global ID. Use the `toGlobalId` function for that.
+
+You'll know it probably works because the following query will return ids in this format `VHJhaW5pbmc6NWU5MzRlNjhlMDZlM2QzN2Q4ZjIxYjVi` instead of `5e934e68e06e3d37d8f21b5b`:
+
+```graphql
+query {
+  discounts {
+    edges {
+      node {
+        id
+      }
+    }
+  }
+}
+```
+
+To check that it really works, use any of the ids from the previous query (the id should look similar to this `sum6NWU5MzRlNjhlMDU5MzRlNjhlM2QzN2Q4Zj__dont_use_this_one_😜`) in the following query.
+
+```graphql
+query {
+  node(id: "🔥PUT_A_DISCOUNT_ID_HERE🔥") {
+    ... on Discount {
+      code
+    }
+  }
+}
+```
+
+If it works it should return some code.
+
+#### 🏋️‍♀️ Bonus exercise part 4
+
+Congratulations! You have completed part 4 🎉.
+
+- There are some commented out [mongoose virtuals](https://mongoosejs.com/docs/tutorials/virtuals.html#your-first-virtual) in `src/db/models/discount.js` and `src/db/models/training.js`. Among other things, they return the `__typename` for each object. If you uncomment the virtuals on each model, how can you leverage that `__typename` virtual in `Node` field of the `Query` type to simplify the `__resolveType` function?
+
+- What's best, A) to override the resolver of the field `id` for the `Training` using the function `toGlobalId`, or B) to use the following virtual instead?
+
+```JavaScript
+TrainingSchema.virtual("id").get(function() {
+  return toGlobalId(TRAINING_TYPENAME, this._id);
+});
+```
+
+You can uncomment that virtual in `src/db/models/training.js`, try, and think of it.
 
 ## License
 

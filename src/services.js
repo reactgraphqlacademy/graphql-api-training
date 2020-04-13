@@ -6,8 +6,8 @@ const { resolveId } = require("./db/utils");
 
 function getObjectById({ type, id }) {
   const types = {
-    Discount: findDiscountById
-    // 🚧 You must add here a key for the Training type and the function that resolves the object given its id
+    Training: findTrainingById
+    // 🚧 You will need to add here a key for the Discount type and the function that resolves the object given its id
   };
 
   return types[type](id);
