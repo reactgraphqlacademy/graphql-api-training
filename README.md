@@ -36,7 +36,7 @@ query {
 }
 ```
 
-- [ ] 2. In `src/schema.js`, replace all the `fetch` functions in all the Query resolvers with the corresponding function in the service. You'll know it works because all the queries will return ids like this `5e93558ae06e3d37d8f3705f` instead of `dis:421`
+- [ ] 2. In `src/schema.js`, replace all the `fetch` functions in all the Query resolvers with the corresponding function from the `services` object in the context. You'll know it works because all the queries will return ids like this `5e93558ae06e3d37d8f3705f` instead of `dis:421`
 
 ```graphql
 query {
