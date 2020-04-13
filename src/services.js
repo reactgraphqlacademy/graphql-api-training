@@ -13,7 +13,7 @@ function getObjectById({ type, id }) {
   return types[type](id);
 }
 
-function findTrainings(args = {}) {
+function findTrainings({ filter = {}, ...args } = {}) {
   const { field, direction } = args.orderBy || {};
   const orderBy =
     field && direction ? { cursorField: field, direction } : undefined;

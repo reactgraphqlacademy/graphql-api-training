@@ -4,10 +4,6 @@ const { GraphQLDateTime } = require("graphql-iso-date");
 const fetch = require("node-fetch");
 
 const typeDefs = gql`
-  #   interface Node {
-  #     id: ID!
-  #   }
-
   type PageInfo {
     hasNextPage: Boolean!
     hasPreviousPage: Boolean!
@@ -15,7 +11,6 @@ const typeDefs = gql`
     endCursor: String
   }
 
-  # type Training implements Node {
   type Training {
     id: ID!
     title: String!
@@ -113,6 +108,10 @@ const resolvers = {
         .catch((error) => console.log(error)),
   },
   DateTime: GraphQLDateTime,
+  OrderDirection: {
+    DESC: -1,
+    ASC: 1,
+  },
 };
 
 module.exports = { typeDefs, resolvers };

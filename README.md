@@ -141,7 +141,7 @@ Some APIs expose a field called `filter` (for instance, [Gatsby](https://www.gat
 
 #### 🏋️‍♀️ Bonus exercise part 3
 
-Update the schema so we can run the following queries:
+Update the schema so the following queries work:
 
 ```graphql
 query future {
@@ -183,7 +183,23 @@ query past {
 
 https://graphql.org/learn/global-object-identification/
 
-- [ ] 1. Given
+The goal of this exercise is to implement [Global Object Identification](https://relay.dev/graphql/objectidentification.htm). Why is this specification important? Some GraphQL clients, like [Relay](https://relay.dev/docs/en/graphql-server-specification.html#object-identification), require it to be implemented on the GraphQL server in order to be compliant.
+
+- [ ] 1. Add the following Node interface to your schema
+
+```graphql
+interface Node {
+  id: ID!
+}
+```
+
+- [ ] 2. Add the following field to the `Query` type
+
+```graphql
+node(id: ID!): Node
+```
+
+- [ ] 2. The `Training` and `Discount` types should implement the interface. More on how to implement an interface in GraphQL [here](https://graphql.org/learn/schema/#interfaces).
 
 ## License
 
