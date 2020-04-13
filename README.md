@@ -65,8 +65,8 @@ There are two reasons for which you might want to use the [GraphQL Cursor Connec
 
 ### Tasks
 
-- [ ] 3. Create a DiscountConnection type. 🕵️‍♀️ Hint, it's very similar to the TrainingConnection.
-- [ ] 4. Create a DiscountEdge type. 🕵️‍♀️ Hint, it's very similar to the TrainingEdge.
+- [ ] 3. Create a DiscountConnection type. Hint, it's very similar to the TrainingConnection.
+- [ ] 4. Create a DiscountEdge type. Hint, it's very similar to the TrainingEdge.
 - [ ] 5. Do you need to create another PageInfo type?
 - [ ] 6. Replace the Query type field `discounts: [Discount!]` with your connection. You know it works because the following query will work:
 
@@ -90,7 +90,7 @@ query {
 }
 ```
 
-- [ ] 7. Update the field `discounts` in the `Query` type to include all the connection [arguments](https://relay.dev/graphql/connections.htm#sec-Arguments). 🕵️‍♀️ Hint, it's **very similar** to the `trainings` field in the `Query` type. You know it works because the arguments `first`, `last`, `after`, and `before` should work. Example:
+- [ ] 7. Update the field `discounts` in the `Query` type to include all the connection [arguments](https://relay.dev/graphql/connections.htm#sec-Arguments). Hint, it's **very similar** to the `trainings` field in the `Query` type. You know it works because the arguments `first`, `last`, `after`, and `before` should work. Example:
 
 ```graphql
 query {
