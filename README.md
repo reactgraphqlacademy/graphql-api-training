@@ -48,9 +48,11 @@ query {
 
 #### 🏋️‍♀️ Bonus exercise part 1
 
-Congratulations, you've completed part 1! You've learned how to use the context for passing things that any resolver might need. In our exercise, we used context to pass all the functions used to "resolve" data.
+Congratulations, you've completed part 1! You've learned how to use the context for passing things that any resolver might need. In our exercise, we used the context to pass all the functions used to "resolve" data.
 
 In this bonus exercise you are going to use the context to pass the authentication scope to the resolvers. You have an example [here](https://www.apollographql.com/docs/apollo-server/data/resolvers/#the-context-argument). You can use the helper function `authScope` defined at the top of `src/server.js`.
+
+Note, using the authScope in the resolvers is not in the scope of this exercise. We are only practicing how to add something different from our services in the context.
 
 ## Exercise part 2 - GraphQL Cursor Connections Specification
 
