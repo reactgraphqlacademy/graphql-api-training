@@ -318,7 +318,7 @@ query {
 }
 ```
 
-To check that it really works, use any of the ids from the previous query (the id should look similar to this `sum6NWU5MzRlNjhlMDU5MzRlNjhlM2QzN2Q4Zj__dont_use_this_one_😜`) in the following query (if it works it should return some code):
+To check that task 17 is really completed, use any of the ids from the previous query (the id should look similar to this `sum6NWU5MzRlNjhlMDU5MzRlNjhlM2QzN2Q4Zj__dont_use_this_one_😜`) in the following query (if it works it should return some code):
 
 ```graphql
 query {
