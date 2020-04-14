@@ -291,7 +291,7 @@ query {
 }
 ```
 
-To check that it really works, use any of the ids from the previous query (the id should look similar to this `sum6NWU5MzRlNjhlMDU5MzRlNjhlM2QzN2Q4Zj__dont_use_this_one_😜`) in the following query.
+To check that it really works, use any of the ids from the previous query (the id should look similar to this `sum6NWU5MzRlNjhlMDU5MzRlNjhlM2QzN2Q4Zj__dont_use_this_one_😜`) in the following query (if it works it should return some title).
 
 ```graphql
 query {
@@ -302,8 +302,6 @@ query {
   }
 }
 ```
-
-If it works it should return some title.
 
 - [ ] 15.1 Finish the implemention of the `getObjectById` function in `src/services.js`. This function receives two arguments: `type` and `id`, and it invokes the function that retrieves the object based on its id. You need to add a key for `Discount` and its "get by id" function.
 - [ ] 15.2 Override the default resolver for the `id` field in the `Discount` type so it returns a global ID. Use the `toGlobalId` function for that.
@@ -322,7 +320,7 @@ query {
 }
 ```
 
-To check that it really works, use any of the ids from the previous query (the id should look similar to this `sum6NWU5MzRlNjhlMDU5MzRlNjhlM2QzN2Q4Zj__dont_use_this_one_😜`) in the following query.
+To check that it really works, use any of the ids from the previous query (the id should look similar to this `sum6NWU5MzRlNjhlMDU5MzRlNjhlM2QzN2Q4Zj__dont_use_this_one_😜`) in the following query (if it works it should return some code).
 
 ```graphql
 query {
@@ -334,13 +332,11 @@ query {
 }
 ```
 
-If it works it should return some code.
-
 #### 🏋️‍♀️ Bonus exercise part 4
 
-Congratulations! You have completed part 4 🎉.
+Congratulations! You have completed part 4 🎉
 
-- [ ] Bonus 4.1. Some clients don't need a [cursor on every edge](https://github.com/graphql/graphql-relay-js/issues/27). Since we can extend the spec, nothing stops us from doing:
+- [ ] Bonus exercise 4.1. Some clients don't need a [cursor on every edge](https://github.com/graphql/graphql-relay-js/issues/27). Since we can extend the spec, nothing stops us from doing:
 
 ```graphql
 query {
@@ -370,17 +366,15 @@ Your task is to implement both in our GraphQL API
 
 An example of APIs that implement both are Gatsby and GitHub API V4.
 
-- [ ] Bonus 4.2. There are some commented out [mongoose virtuals](https://mongoosejs.com/docs/tutorials/virtuals.html#your-first-virtual) in `src/db/models/discount.js` and `src/db/models/training.js`. Among other things, they return the `__typename` for each object. Uncomment the virtuals on each model. Your task is to simplify the implementation of the `__resolveType` function in the `Node` field of the `Query` type leveraging the `__typename` virtual from the model.
+- [ ] Bonus exercise 4.2. There are some commented out [mongoose virtuals](https://mongoosejs.com/docs/tutorials/virtuals.html#your-first-virtual) in `src/db/models/discount.js` and `src/db/models/training.js`. Among other things, they return the `__typename` for each object. Uncomment the virtuals on each model. Your task is to simplify the implementation of the `__resolveType` function in the `Node` field of the `Query` type using the `__typename` virtual from the model.
 
-* [ ] Bonus 4.3. What's best, A) to override the resolver of the field `id` for the `Training` using the function `toGlobalId`, or B) to use the following virtual instead?
+* [ ] Bonus exercise 4.3. What's best, A) to override the resolver of the field `id` for the `Training` using the function `toGlobalId`, or B) to use the following virtual instead? You can uncomment the follwing virtual in `src/db/models/training.js`, try, and think about it.
 
 ```JavaScript
 TrainingSchema.virtual("id").get(function() {
   return toGlobalId(TRAINING_TYPENAME, this._id);
 });
 ```
-
-You can uncomment that virtual in `src/db/models/training.js`, try, and think of it.
 
 ## License
 
