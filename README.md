@@ -366,7 +366,7 @@ An example of APIs that implement both are Gatsby and GitHub API V4.
 
 - [ ] Bonus exercise 4.2. There are some commented out [mongoose virtuals](https://mongoosejs.com/docs/tutorials/virtuals.html#your-first-virtual) in `src/db/models/discount.js` and `src/db/models/training.js`. Among other things, they return the `__typename` for each object. Uncomment the virtuals on each model. Your task is to simplify the implementation of the `__resolveType` function in the `Node` field of the `Query` type using the `__typename` virtual from the model.
 
-* [ ] Bonus exercise 4.3. What's best, A) to override the resolver of the field `id` for the `Training` using the function `toGlobalId`, or B) to use the following virtual instead? You can uncomment the follwing virtual in `src/db/models/training.js`, try, and think about it.
+* [ ] Bonus exercise 4.3. What's best, A) to override the resolver of the field `id` for the `Training` type using the function `toGlobalId`, or B) to use the following virtual instead? You can uncomment the follwing virtual in `src/db/models/training.js`, try, and think about it.
 
 ```JavaScript
 TrainingSchema.virtual("id").get(function() {
