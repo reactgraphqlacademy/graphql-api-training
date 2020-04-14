@@ -303,10 +303,8 @@ query {
 }
 ```
 
-- [ ] 15.1 Finish the implemention of the `getObjectById` function in `src/services.js`. This function receives two arguments: `type` and `id`, and it invokes the function that retrieves the object based on its id. You need to add a key for `Discount` and its "get by id" function.
-- [ ] 15.2 Override the default resolver for the `id` field in the `Discount` type so it returns a global ID. Use the `toGlobalId` function for that.
-
-You'll know it probably works because the following query will return ids in this format `VHJhaW5pbmc6NWU5MzRlNjhlMDZlM2QzN2Q4ZjIxYjVi` instead of `5e934e68e06e3d37d8f21b5b`:
+- [ ] 17.1 Finish the implemention of the `getObjectById` function in `src/services.js`. This function receives two arguments: `type` and `id`, and it invokes the function that retrieves the object based on its id. You need to add a key for `Discount` and its "get by id" function.
+- [ ] 17.2 Override the default resolver for the `id` field in the `Discount` type so it returns a global ID. Use the `toGlobalId` function for that. You'll know it probably works because the following query will return ids in this format `VHJhaW5pbmc6NWU5MzRlNjhlMDZlM2QzN2Q4ZjIxYjVi` instead of `5e934e68e06e3d37d8f21b5b`:
 
 ```graphql
 query {
