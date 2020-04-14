@@ -362,7 +362,7 @@ query {
 
 Your task is to implement both in our GraphQL API
 
-An example of APIs that implement both are [Gatsby](https://www.gatsbyjs.org/docs/graphql-reference/#a-longer-query) and GitHub API V4.
+An example of APIs that implement both queries are [Gatsby](https://www.gatsbyjs.org/docs/graphql-reference/#a-longer-query) and GitHub API V4.
 
 - [ ] Bonus exercise 4.2. There are some commented out [mongoose virtuals](https://mongoosejs.com/docs/tutorials/virtuals.html#your-first-virtual) in `src/db/models/discount.js` and `src/db/models/training.js`. Among other things, they return the `__typename` for each object. Uncomment the virtuals on each model. Your task is to simplify the implementation of the `__resolveType` function in the `Node` field of the `Query` type using the `__typename` virtual from the model.
 
