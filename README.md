@@ -340,9 +340,39 @@ If it works it should return some code.
 
 Congratulations! You have completed part 4 🎉.
 
-- There are some commented out [mongoose virtuals](https://mongoosejs.com/docs/tutorials/virtuals.html#your-first-virtual) in `src/db/models/discount.js` and `src/db/models/training.js`. Among other things, they return the `__typename` for each object. If you uncomment the virtuals on each model, how can you leverage that `__typename` virtual in `Node` field of the `Query` type to simplify the `__resolveType` function?
+- [ ] Bonus 4.1. Some clients don't need a [cursor on every edge](https://github.com/graphql/graphql-relay-js/issues/27). Since we can extend the spec, nothing stops us from doing:
 
-- What's best, A) to override the resolver of the field `id` for the `Training` using the function `toGlobalId`, or B) to use the following virtual instead?
+```graphql
+query {
+  discounts {
+    nodes {
+      id
+    }
+  }
+}
+```
+
+as long as we also enable the following query so our API is still spec compliant:
+
+```graphql
+query {
+  discounts {
+    edges {
+      node {
+        id
+      }
+    }
+  }
+}
+```
+
+Your task is to implement both in our GraphQL API
+
+An example of APIs that implement both are Gatsby and GitHub API V4.
+
+- [ ] Bonus 4.2. There are some commented out [mongoose virtuals](https://mongoosejs.com/docs/tutorials/virtuals.html#your-first-virtual) in `src/db/models/discount.js` and `src/db/models/training.js`. Among other things, they return the `__typename` for each object. Uncomment the virtuals on each model. Your task is to simplify the implementation of the `__resolveType` function in the `Node` field of the `Query` type leveraging the `__typename` virtual from the model.
+
+* [ ] Bonus 4.3. What's best, A) to override the resolver of the field `id` for the `Training` using the function `toGlobalId`, or B) to use the following virtual instead?
 
 ```JavaScript
 TrainingSchema.virtual("id").get(function() {
