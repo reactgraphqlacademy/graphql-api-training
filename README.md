@@ -253,7 +253,7 @@ node(id: ID!): Node
 - [ ] 14. Implement the resolver for the `node` field in the `Query` type. You need to use two things:
 
   - [ ] 14.1 Use the `fromGlobalId` function (imported from `graphql-relay` at the top of the file) to get the "local" id before resolving the object.
-  - [ ] 14.2 Use the `getObjectById` function from `services` to resolve the `node` field in the `Query` type. You can move to the next task when you get this error "Abstract type Node must resolve to an Object type at runtime for field Query.node with value { \_id: [ObjectID], title: \"Advanced React\", objectives: ... " when running the following query:
+  - [ ] 14.2 Use the `getObjectById` function from `services` to resolve the `node` field in the `Query` type. Try the following query. You can move to the next task when you get this error "Abstract type Node must resolve to an Object type at runtime for field Query.node with value { \_id: [ObjectID], title: \"Advanced React\", objectives: ... " when running the following query:
 
 ```graphql
 query {
