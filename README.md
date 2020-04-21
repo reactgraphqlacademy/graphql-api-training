@@ -81,8 +81,8 @@ To complete the tasks you'll use the mock data and helper functions that are at 
   - [ ] 2.3 You should be able to manually test the `discounts` query in Playground at [http://localhost:4000/](http://localhost:4000/)
 
 - [ ] 3. Replace the mock data with real data using the following endpoints:
-  - [https://mockedrestapi.reactgraphql.academy/v1/trainings](https://mockedrestapi.reactgraphql.academy/v1/trainings)
-  - [https://mockedrestapi.reactgraphql.academy/v1/discounts](https://mockedrestapi.reactgraphql.academy/v1/discounts)
+  - [https://api.reactgraphql.academy/rest/trainings](https://api.reactgraphql.academy/rest/trainings)
+  - [https://api.reactgraphql.academy/rest/discounts](https://api.reactgraphql.academy/rest/discounts)
 
 🛠 Helper. You can use the `fetchTrainings` and `fetchDiscounts` defined at the bottom of this file `src/index.js`
 
@@ -95,7 +95,7 @@ Note on mocking. In the next session, we'll use the automocking feature of Apoll
 ```js
 const server = new ApolloServer({
   typeDefs,
-  mocks: true // ⬅️⬅️⬅️⬅️
+  mocks: true, // ⬅️⬅️⬅️⬅️
 });
 ```
 
@@ -173,8 +173,8 @@ const resolvers = {
   Query: {
     author(parent, args) {
       console.log(args); // { id: 3 } based on the query below
-    }
-  }
+    },
+  },
 };
 ```
 

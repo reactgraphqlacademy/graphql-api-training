@@ -4,12 +4,12 @@ const { ApolloServer, gql } = require("apollo-server");
 const books = [
   {
     title: "Harry Potter and the Chamber of Secrets",
-    author: "J.K. Rowling"
+    author: "J.K. Rowling",
   },
   {
     title: "Jurassic Park",
-    author: "Michael Crichton"
-  }
+    author: "Michael Crichton",
+  },
 ];
 
 const trainingMockData = [
@@ -18,15 +18,15 @@ const trainingMockData = [
     title: "React Fundamentals",
     objectives: "learning basics of react",
     curriculum:
-      "-Thinking in React, Modern JavaScript, Routing & Data Fetching\n-Forms, Authentication, and Hooks\n-Redux Fundamentals, deployment to production"
+      "-Thinking in React, Modern JavaScript, Routing & Data Fetching\n-Forms, Authentication, and Hooks\n-Redux Fundamentals, deployment to production",
   },
   {
     id: "tra:2",
     title: "Advanced React",
     objectives: "master react",
     curriculum:
-      "-Advanced React patterns and performance.\n-GraphQL 101 & Real-World Testing in React.\n-Building a UI component library"
-  }
+      "-Advanced React patterns and performance.\n-GraphQL 101 & Real-World Testing in React.\n-Building a UI component library",
+  },
 ];
 
 const discountMockData = [
@@ -34,20 +34,20 @@ const discountMockData = [
     id: "dis:1",
     code: "sweetpotato60",
     discountPercentage: 60,
-    description: null
+    description: null,
   },
   {
     id: "dis:2",
     code: "garlic20",
     discountPercentage: 20,
-    description: null
+    description: null,
   },
   {
     id: "dis:3",
     code: "onion50",
     discountPercentage: 50,
-    description: null
-  }
+    description: null,
+  },
 ];
 
 // Type definitions define the "shape" of your data and specify
@@ -70,8 +70,8 @@ const typeDefs = gql`
 // schema.  We'll retrieve books from the "books" array above.
 const resolvers = {
   Query: {
-    books: () => books
-  }
+    books: () => books,
+  },
 };
 
 // In the most basic sense, the ApolloServer can be started
@@ -84,40 +84,35 @@ const server = new ApolloServer({ typeDefs, resolvers });
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });
-
 function fetchTrainings() {
   // More info about the fetch function? https://github.com/bitinn/node-fetch#json
-  return fetch("https://restapi.reactgraphql.academy/v1/trainings/")
-    .then(res => res.json())
-    .catch(error => console.log(error));
+  return fetch("https://api.reactgraphql.academy/rest/trainings/")
+    .then((res) => res.json())
+    .catch((error) => console.log(error));
 }
 
 function fetchTrainingById(id) {
-  return fetch(`https://restapi.reactgraphql.academy/v1/trainings/${id}`)
-    .then(res => res.json())
-    .catch(error => console.log(error));
+  return fetch(`https://api.reactgraphql.academy/rest/trainings/${id}`)
+    .then((res) => res.json())
+    .catch((error) => console.log(error));
 }
-
 function fetchDiscounts() {
-  return fetch("https://restapi.reactgraphql.academy/v1/discounts/")
-    .then(res => res.json())
-    .catch(error => console.log(error));
+  return fetch("https://api.reactgraphql.academy/rest/discounts/")
+    .then((res) => res.json())
+    .catch((error) => console.log(error));
 }
-
 function fetchTrainingByUrl(url) {
   return fetch(url)
-    .then(res => res.json())
-    .catch(error => console.log(error));
+    .then((res) => res.json())
+    .catch((error) => console.log(error));
 }
-
 function fetchDiscountById(id) {
-  return fetch(`https://restapi.reactgraphql.academy/v1/discounts/${id}`)
-    .then(res => res.json())
-    .catch(error => console.log(error));
+  return fetch(`https://api.reactgraphql.academy/rest/discounts/${id}`)
+    .then((res) => res.json())
+    .catch((error) => console.log(error));
 }
-
 function fetchDiscountByUrl(url) {
   return fetch(url)
-    .then(res => res.json())
-    .catch(error => console.log(error));
+    .then((res) => res.json())
+    .catch((error) => console.log(error));
 }
