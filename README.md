@@ -1,6 +1,6 @@
 # GraphQL API Fundamentals
 
-This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy) learning material. The goal of the exercise is to help you get started transitioning from REST to GraphQL.
+This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy) training material.
 
 ## Our teaching method
 
@@ -23,6 +23,8 @@ More on our [teaching method](https://reactgraphql.academy/blog/react-graphql-ac
 
 ## Exercise part 1
 
+🎯 The goal of this exercise it to help you get familiar with GraphQL queries and the in-browser IDE Playground.
+
 Given the following [GraphQL API](https://us-central1-rga-mocked-apis.cloudfunctions.net/graphql):
 
 - Query a list with all the training and retrieve the title and language for each
@@ -31,8 +33,6 @@ Given the following [GraphQL API](https://us-central1-rga-mocked-apis.cloudfunct
 - How many types do we have in the system?
 
 ## Exercise part 2
-
-### To get started
 
 We are going to create our own GraphQL API on top of this [REST API](https://api.reactgraphql.academy/rest/trainings)
 
@@ -44,10 +44,10 @@ We are going to create our own GraphQL API on top of this [REST API](https://api
 
 ### 🥑 Before we start
 
-- Don't forget to checkout the `fundamentals-v2` branch, install the dependencies, and let me walk you through the code meanwhile.
+- Don't forget to checkout the `fundamentals-v2` branch, and install the dependencies.
 - We use nodemon in the `start` script, so every time you save, the server will restart automatically.
-- The `src/index.js` is the [getting started tutorial](https://www.apollographql.com/docs/apollo-server/getting-started/) from Apollo.
-- Let's replace the schema:
+- The `src/index.js` is the [getting started tutorial](https://www.apollographql.com/docs/apollo-server/getting-started/) from Apollo. Let me walk you through our code.
+- Let's do a small exercise to warm up, let's replace in the schema:
 
 ```graphql
 type Query {
@@ -63,9 +63,11 @@ type Query {
 }
 ```
 
-What do we need to change so the field avocados returns the array of books when we run the query? ⏳I'll give you 2 minutes to fix it.
+🏋️‍♀️ Mini exercise. What do we need to change so the field avocados returns the array of books when we run the query? ⏳ You have 2 minutes to fix it.
 
 ### Tasks
+
+🎯 The goal of the following tasks it to help you get familiar with the Schema Definition Language (SDL) and the resolvers.
 
 ⚠️ Some info before you start the tasks:
 
@@ -147,7 +149,7 @@ const resolvers = {
 
 We could also create a new field that returns the upper case version of the title without changing the title field. Example:
 
-⚠️ Learners implement (⏳ only 5 minutes to implement and write a query to test it!):
+⚠️ Learners implement (⏳ you only 5 minutes to implement and write a query to test it!):
 
 ```graphql
 type Training {
@@ -201,6 +203,8 @@ query authorName {
 
 ### Tasks
 
+🎯 The goal of the following tasks it to help you understand how arguments and relationships work in GraphQL.
+
 To complete the tasks you'll use the helper functions that are at the bottom of the file `src/index.js`
 
 - [ ] 4. Implement a new field in the `Query` type that returns a single training given an id. You need to fetch the training from this endpoint `https://api.reactgraphql.academy/rest/trainings/` + `id`. 🕵️‍♂️ Hint, you need to pass [arguments](https://graphql.org/graphql-js/passing-arguments/) to the field, and then use the second argument in the resolver. There is a helper function at the bottom of `src/index.js`.
@@ -243,27 +247,52 @@ query getTraining {
 
 #### 🏋️‍♀️ Bonus exercise part 3
 
-Create the types and resolvers so the following query works:
+- [ ] Bonus 1. Create the types and resolvers so the following query works:
 
 ```graphql
-query getDangerousDiscount {
+query getPotentiallyDangerousDiscount {
   discount(id: "dis:421") {
     code
     training {
       title
       discounts {
         code
-        # why this query could be dangerous?
+        # why this type of query could be potentially dangerous?
       }
     }
   }
 }
 ```
 
-Bonus final questions:
-
-- Once the getDangerousDiscount query is implemented, do you see any problem/ vulnerability issues on that query?
+- Once the getPotentiallyDangerousDiscount query is implemented, do you see any problem/ vulnerability issues on that type of query?
 - Should the relationship Discount to Training be non-nullable? Meaning `training: Training` or `training: Training!`
+
+* [ ] Bonus 2. If we run the following query, is the GraphQL Server fetching the training from the rest API (you can use a console.log in the resolver)?
+
+```graphql
+query {
+  discount(id: "dis:421") {
+    code
+    # with the training field commented out, is the training resolver invoked on the API?
+    # training {
+    #  title
+    # }
+  }
+}
+```
+
+- [ ] Bonus 3. Add a `first` argument to the field discounts in the `Training` object type. The `first` argument is an integer that makes the field `discounts` return the first N discounts, being N the value of the argument. Once implemented, you should be able to run the following query
+
+```graphql
+query getTraining {
+  training(id: "tra:22") {
+    title
+    discounts(first: 2) {
+      code
+    }
+  }
+}
+```
 
 🤸🏾Do you want some extra workout? Create an [enumeration](https://graphql.org/learn/schema/#enumeration-types) for the languages. Add field language to the Training object type that uses the language enum.
 
@@ -298,3 +327,7 @@ You are going to build a GraphQL API on top of an existing REST API. Steps:
 ## License
 
 This material is available for private, non-commercial use under the [GPL version 3](http://www.gnu.org/licenses/gpl-3.0-standalone.html).
+
+```
+
+```
