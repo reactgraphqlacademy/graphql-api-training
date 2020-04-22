@@ -3,10 +3,9 @@ const mongoose = require("mongoose");
 require("./models/training");
 require("./models/discount");
 
-mongoose.connect(
-  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSER}.gcp.mongodb.net/LMS`,
-  {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  }
-);
+const connection = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.gcp.mongodb.net/LMS`;
+console.log("🔥", connection);
+mongoose.connect(connection, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+});
