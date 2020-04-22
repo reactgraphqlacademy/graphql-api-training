@@ -23,7 +23,7 @@ More on our [teaching method](https://reactgraphql.academy/blog/react-graphql-ac
 
 ## Exercise part 1
 
-🎯 The goal of this exercise part 1 is to get familiar with GraphQL queries and the in-browser IDE Playground.
+🎯 The goal of this exercise it to help you get familiar with GraphQL queries and the in-browser IDE Playground.
 
 Given the following [GraphQL API](https://us-central1-rga-mocked-apis.cloudfunctions.net/graphql):
 
@@ -67,7 +67,7 @@ type Query {
 
 ### Tasks
 
-🎯 The goal of this exercise part 2 is to get familiar with the Schema Definition Language (SDL) and the resolvers.
+🎯 The goal of the following tasks it to help you get familiar with the Schema Definition Language (SDL) and the resolvers.
 
 ⚠️ Some info before you start the tasks:
 
@@ -203,7 +203,7 @@ query authorName {
 
 ### Tasks
 
-🎯 The goal of the exercise part 3 is to understand how arguments and relationships work in GraphQL.
+🎯 The goal of the following tasks it to help you understand how arguments and relationships work in GraphQL.
 
 To complete the tasks you'll use the helper functions that are at the bottom of the file `src/index.js`
 
