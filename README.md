@@ -2,6 +2,19 @@
 
 This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy) learning material. The goal of the exercise is to help you get started transitioning from REST to GraphQL.
 
+## Our teaching method
+
+1. Collaborative learning environment & pair programming.
+   - Rooms with small groups
+   - Work with your peers, discuss, help each other.
+2. We try to foster critical thinking.
+   - ⬆️ Discovery ⬇️ Instruction
+3. We don’t explain everything you need to know before the exercise:
+   - The exercise is meant to help you come up with conclusions.
+   - Learn by doing and build a mental model.
+
+More on our [teaching method](https://reactgraphql.academy/blog/react-graphql-academy-teaching-method/)
+
 ## Learning objectives
 
 - Understand the main functionalities and responsibilities of a GraphQL server
@@ -55,9 +68,10 @@ What do we need to change so the field avocados returns the array of books when 
 ### Tasks
 
 ⚠️ Some info before you start the tasks:
-1- You can define an array using square brackets and the type, example `[Book]`
-2- You can use the scalar type `ID` for ids.
-3- In GraphQL types are nullable by default. If you want to make a type non-nullable use `!` (exclamation mark). Example:
+
+- You can define an array using square brackets and the type, example `[Book]`
+- You can use the scalar type `ID` for ids.
+- In GraphQL types are nullable by default. If you want to make a type non-nullable use `!` (exclamation mark). Example:
 
 ```graphql
 type Book {
@@ -80,8 +94,8 @@ To complete the tasks you'll use the mock data and helper functions that are at 
   - [ ] 2.3 You should be able to manually test the `discounts` query in Playground at [http://localhost:4000/](http://localhost:4000/)
 
 - [ ] 3. Replace the mock data with real data using the following endpoints:
-  - [https://mockedrestapi.reactgraphql.academy/v1/trainings](https://mockedrestapi.reactgraphql.academy/v1/trainings)
-  - [https://mockedrestapi.reactgraphql.academy/v1/discounts](https://mockedrestapi.reactgraphql.academy/v1/discounts)
+  - [https://api.reactgraphql.academy/rest/trainings](https://api.reactgraphql.academy/rest/trainings)
+  - [https://api.reactgraphql.academy/rest/discounts](https://api.reactgraphql.academy/rest/discounts)
 
 🛠 Helper. You can use the `fetchTrainings` and `fetchDiscounts` defined at the bottom of this file `src/index.js`
 
@@ -94,7 +108,7 @@ Note on mocking. In the next session, we'll use the automocking feature of Apoll
 ```js
 const server = new ApolloServer({
   typeDefs,
-  mocks: true // ⬅️⬅️⬅️⬅️
+  mocks: true, // ⬅️⬅️⬅️⬅️
 });
 ```
 
@@ -172,8 +186,8 @@ const resolvers = {
   Query: {
     author(parent, args) {
       console.log(args); // { id: 3 } based on the query below
-    }
-  }
+    },
+  },
 };
 ```
 
@@ -249,7 +263,7 @@ query getDangerousDiscount {
 Bonus final questions:
 
 - Once the getDangerousDiscount query is implemented, do you see any problem/ vulnerability issues on that query?
-- Should the relationship Discount to Training be non-nullable? meaning `training: Training` or `training: Training!`
+- Should the relationship Discount to Training be non-nullable? Meaning `training: Training` or `training: Training!`
 
 🤸🏾Do you want some extra workout? Create an [enumeration](https://graphql.org/learn/schema/#enumeration-types) for the languages. Add field language to the Training object type that uses the language enum.
 
