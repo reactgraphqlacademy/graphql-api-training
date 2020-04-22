@@ -27,6 +27,7 @@ More on our [teaching method](https://reactgraphql.academy/blog/react-graphql-ac
 - `cd graphql-api-training`
 - `git checkout relay-v2`
 - `yarn install` or `npm install`
+- Copy .env.example to .env and ask the coach for the credentials to connect to the DB.
 - `yarn start` or `npm start`
 
 ## Exercise part 1 - Context
