@@ -17,9 +17,9 @@ More on our [teaching method](https://reactgraphql.academy/blog/react-graphql-ac
 
 ## Learning objectives
 
-- Understand the advantages of using the GraphQL Cursor Connections Specification
-- Learn how to implement in JavaScript a GraphQL API compliant with the specification
-- Learn how to extend the implementation of the spec and add things such as filters or a total count.
+- Understand the advantages of implementing the GraphQL Cursor Connections Specification.
+- Learn how to implement in JavaScript a GraphQL API compliant with the Connections spec.
+- Understand how to extend the specification and implement a use case like filtering.
 
 ## To get started
 
@@ -33,27 +33,16 @@ More on our [teaching method](https://reactgraphql.academy/blog/react-graphql-ac
 
 ### 🥑 Before we start the exercise
 
-- ⚠️ Don't forget to checkout the `relay-v2` branch, install the dependencies, and let me walk you through the code meanwhile.
-- This exercise builds on top of [the fundamentals branch](https://github.com/reactgraphqlacademy/graphql-api-training/tree/fundamentals-v2)
+- ⚠️ In `src/server.js` we are passing a `services` object to the ApolloServer using the `context`argument in the constructor.
 - We use nodemon in the `start` script, so every time you save, the server will restart automatically.
+- This exercise builds on top of [the fundamentals branch](https://github.com/reactgraphqlacademy/graphql-api-training/tree/fundamentals-v2)
+- Don't forget to checkout the `relay-v2` branch, install the dependencies, and let me walk you through the code meanwhile.
 
 ### Tasks
 
-- [ ] 1. Given the `services` object imported at the top of the file `src/server.js`, include the `services` in the context of the ApolloServer. You'll know it works because the following query will work on Playground, otherwise, you'll get an error such as `"message": "Cannot read property 'findTrainings' of undefined"`
+🎯 The goal of this exercise part 1 is to learn what the context in your resolvers is. The context passed to the resolvers is set in `src/server.js` using the `context` argument in the constructor of the ApolloServer.
 
-```graphql
-query {
-  trainings {
-    edges {
-      node {
-        id
-      }
-    }
-  }
-}
-```
-
-- [ ] 2. In `src/schema.js`, replace all the `fetch` functions in all the Query resolvers with the corresponding function from the `services` object in the context. You'll know it works because all the queries will return ids like this `5e93558ae06e3d37d8f3705f` instead of `dis:421`
+- [ ] 1. In `src/schema.js`, replace all the `fetch` functions in all the Query resolvers with the corresponding function from the `services` object in the context. You'll know that it works because all the queries will return ids like this `5e93558ae06e3d37d8f3705f` instead of `dis:421`. You can test it by running the `trainings`, `training`, `discount`, and `discounts` queries on Playground, e.g.:
 
 ```graphql
 query {
@@ -82,10 +71,12 @@ There are two reasons for which you might want to use the [GraphQL Cursor Connec
 
 ### Tasks
 
-- [ ] 3. Create a DiscountConnection type. Hint, it's very similar to the TrainingConnection.
-- [ ] 4. Create a DiscountEdge type. Hint, it's very similar to the TrainingEdge.
-- [ ] 5. Do you need to create another PageInfo type?
-- [ ] 6. Replace the Query type field `discounts: [Discount!]` with your connection. You know it works because the following query will return data:
+🎯 The goal of this exercise part 2 is to implement a GraphQL Cursor Connections Specification for the `discounts` query. The shape of the data returned by the `services.findDiscounts` function from the context complies with the spec. In other words, you don't have to change the resolvers in this exercise part 2. You only need to write the type definitions.
+
+- [ ] 2. Create a DiscountConnection type. Hint, it's very similar to the TrainingConnection.
+- [ ] 3. Create a DiscountEdge type. Hint, it's very similar to the TrainingEdge.
+- [ ] 4. Do you need to create another PageInfo type?
+- [ ] 5. Replace the Query type field `discounts: [Discount!]` with your connection. You know it works because the following query will return data:
 
 ```graphql
 query {
@@ -107,7 +98,7 @@ query {
 }
 ```
 
-- [ ] 7. Update the field `discounts` in the `Query` type to include all the connection [arguments](https://relay.dev/graphql/connections.htm#sec-Arguments). Hint, it's **very similar** to the `trainings` field in the `Query` type. You know it works because the arguments `first`, `last`, `after`, and `before` should work. Example:
+- [ ] 6. Update the field `discounts` in the `Query` type to include all the connection [arguments](https://relay.dev/graphql/connections.htm#sec-Arguments). Hint, it's **very similar** to the `trainings` field in the `Query` type. You know it works because the arguments `first`, `last`, `after`, and `before` should work. Example:
 
 ```graphql
 query {
@@ -145,14 +136,14 @@ We can extend the "Connections" to accomodate particular use cases. One example 
 
 To complete the next exercise we'll use [GraphQL input types](https://graphql.org/learn/schema/#input-types). Input types are not only used for mutations but also to pass complex objects to our queries.
 
-The goal of this exercise it to add filtering and sorting to our `discounts` connection. The service.findDiscounts is ready to handle our schema modifications. You'll only need to edit this file `src/schema.js`
-
 ### Tasks
 
-- [ ] 8. We want to be able to filter discounts by training ID. Modify `DiscountFilter` to include the field `trainingId`. You need to add the type to each field of the input type, [example](https://graphql.org/learn/schema/#input-types).
-- [ ] 9. Add a field `code` to the `DiscountOrderField` type.
-- [ ] 10. Edit the type `DiscountOrder` and add the right types to each field.
-- [ ] 11. Update the field `discounts` in the `Query` type to include the `filter` and `orderBy` arguments. Once implemented, the following query should work.
+🎯 The goal of this exercise part 3 is to add filtering and sorting to our `discounts` query. The `service.findDiscounts` is ready to handle our schema modifications. You'll only need to edit the type definitions in this file `src/schema.js`. You don't have to edit the resolvers.
+
+- [ ] 7. We want to be able to filter discounts by training ID. Modify `DiscountFilter` to include the field `trainingId`. You need to add the type to each field of the input type, [example](https://graphql.org/learn/schema/#input-types).
+- [ ] 8. Add a field `code` to the `DiscountOrderField` type.
+- [ ] 9. Edit the type `DiscountOrder` and add the right types to each field.
+- [ ] 10. Update the field `discounts` in the `Query` type to include the `filter` and `orderBy` arguments. Once implemented, the following query should work.
 
 ```graphql
 query {
@@ -219,8 +210,6 @@ query past {
 
 https://graphql.org/learn/global-object-identification/
 
-The goal of this exercise is to implement the [Global Object Identification](https://relay.dev/graphql/objectidentification.htm). Why is this specification important? Some GraphQL clients, like [Relay](https://relay.dev/docs/en/graphql-server-specification.html#object-identification), require it to be implemented on the GraphQL server in order to be compliant.
-
 ### 🥑 Before we start the exercise
 
 #### Interfaces
@@ -248,7 +237,9 @@ query {
 
 ### Tasks
 
-- [ ] 12. Add the following Node interface to your schema
+🎯 The goal of this exercise part 4 is to make our API compliant with the [Global Object Identification](https://relay.dev/graphql/objectidentification.htm) spec. Why is this specification important? Some GraphQL clients, like [Relay](https://relay.dev/docs/en/graphql-server-specification.html#object-identification), require it to be implemented on the GraphQL server
+
+- [ ] 11. Add the following Node interface to your schema
 
 ```graphql
 interface Node {
