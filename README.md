@@ -1,6 +1,6 @@
 # GraphQL API Fundamentals
 
-This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy) training material. The goal of this exercise is to help you get started transitioning from REST to GraphQL.
+This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy) training material.
 
 ## Our teaching method
 
