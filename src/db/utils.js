@@ -1,11 +1,12 @@
 const { fromGlobalId } = require("graphql-relay");
+const ObjectId = require("mongoose").Types.ObjectId;
 
 function resolveId(id) {
-  const { id: localId } = fromGlobalId(id) || {};
+  const mongoId = new ObjectId(id);
 
-  return id && !localId ? id : localId;
+  return mongoId && mongoId.toString() === id ? id : fromGlobalId(id).id;
 }
 
 module.exports = {
-  resolveId
+  resolveId,
 };
