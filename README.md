@@ -4,7 +4,8 @@ This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy
 
 ## Learning objectives
 
-- Learn how to create GraphQL schemas that are flexible and adapt to change- Understand the tradeoffs of most common GraphQL design patterns
+- Learn how to create GraphQL schemas that are flexible and adapt to change
+- Understand the tradeoffs of most common GraphQL design patterns
 
 ## Exercise part 1
 
