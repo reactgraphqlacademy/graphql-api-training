@@ -364,7 +364,7 @@ query {
 }
 ```
 
-Your task is to implement both in our GraphQL API
+Your task is to implement both in our queries GraphQL API.
 
 An example of APIs that implement both queries are [Gatsby](https://www.gatsbyjs.org/docs/graphql-reference/#a-longer-query) and GitHub API V4.
 
