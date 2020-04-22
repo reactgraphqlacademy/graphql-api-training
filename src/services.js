@@ -10,7 +10,7 @@ function findTrainings(args = {}) {
 }
 
 function findTrainingById(id) {
-  return db.models.Training.findOne({ _id: id });
+  return db.models.Training.findOne({ _id: resolveId(id) });
 }
 
 function findDiscounts({ filter = {}, ...args } = {}) {
@@ -27,11 +27,11 @@ function findDiscounts({ filter = {}, ...args } = {}) {
 }
 
 function findDiscountById(id) {
-  return db.models.Discount.findOne({ _id: id });
+  return db.models.Discount.findOne({ _id: resolveId(id) });
 }
 
 function findDiscountsByTrainingId(trainingId) {
-  return db.models.Discount.find({ _trainingId: trainingId });
+  return db.models.Discount.find({ _trainingId: resolveId(trainingId) });
 }
 
 function getObjectById({ type, id }) {
