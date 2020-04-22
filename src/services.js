@@ -6,7 +6,7 @@ const { resolveId } = require("./db/utils");
 
 function getObjectById({ type, id }) {
   const types = {
-    Training: findTrainingById
+    Training: findTrainingById,
     // 🚧 You will need to add here a key for the Discount type and the function that resolves the object given its id
   };
 
@@ -28,7 +28,7 @@ function findTrainings({ filter = {}, ...args } = {}) {
 }
 
 function findTrainingById(id) {
-  return db.models.Training.findOne({ _id: id });
+  return db.models.Training.findOne({ _id: resolveId(id) });
 }
 
 function findDiscounts({ filter = {}, ...args } = {}) {
@@ -58,5 +58,5 @@ module.exports = {
   findDiscountById,
   findDiscountById,
   findDiscountsByTrainingId,
-  getObjectById
+  getObjectById,
 };
