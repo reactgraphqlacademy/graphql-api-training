@@ -1,6 +1,6 @@
 # GraphQL Schema Design
 
-This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy) learning material.
+This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy) training material.
 
 ## Learning objectives
 
