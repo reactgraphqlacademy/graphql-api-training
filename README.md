@@ -2,6 +2,19 @@
 
 This exercise is part of the [React GraphQL Academy](http://reactgraphql.academy) learning material. The goal of the exercise is to learn how to implement the [GraphQL Cursor Connections Specification](https://relay.dev/graphql/connections.htm) and the [GraphQL Global Object Identification Specification](https://relay.dev/graphql/objectidentification.htm).
 
+## Our teaching method
+
+1. Collaborative learning environment & pair programming.
+   - Rooms with small groups
+   - Work with your peers, discuss, help each other.
+2. We try to foster critical thinking.
+   - ⬆️ Discovery ⬇️ Instruction
+3. We don’t explain everything you need to know before the exercise:
+   - The exercise is meant to help you come up with conclusions.
+   - Learn by doing and build a mental model.
+
+More on our [teaching method](https://reactgraphql.academy/blog/react-graphql-academy-teaching-method/)
+
 ## Learning objectives
 
 - Understand the advantages of using the GraphQL Cursor Connections Specification
