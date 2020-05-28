@@ -17,9 +17,8 @@ More on our [teaching method](https://reactgraphql.academy/blog/react-graphql-ac
 
 ## Learning objectives
 
-- Understand the advantages of implementing the [GraphQL Cursor Connections Specification](https://relay.dev/graphql/connections.htm).
-- Learn how to implement in JavaScript a GraphQL API compliant with the Connections spec.
-- Understand how to extend the specification and implement a use case like filtering.
+- Learn how to connect your GraphQL API to different data sources such as a REST API or a database.
+- Design standard GraphQL schemas compliant with different GraphQL specifications.
 
 ## To get started
 
