@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/reactgraphqlacademy/rest-to-graphql-workshop#readme",
   "dependencies": {
-    "apollo-server": "^2.5.0",
+    "apollo-server": "^2.14.2",
     "graphql": "^14.3.1",
     "graphql-relay": "^0.6.0",
     "node-fetch": "^2.6.0"
