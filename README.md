@@ -42,7 +42,7 @@ More on our [teaching method](https://reactgraphql.academy/blog/react-graphql-ac
 
 🎯 The goal of this exercise part 1 is to learn what the context in your resolvers is. The context passed to the resolvers is set in `src/server.js` using the `context` argument in the constructor of the ApolloServer.
 
-- [ ] 1. In `src/schema.js`, replace all the `fetch` functions in all the Query resolvers with the corresponding function from the `services` object in the context. You'll know that it works because all the queries will return ids like this `5e93558ae06e3d37d8f3705f` instead of `dis:421`. You can test it by running the `trainings`, `training`, `discount`, and `discounts` queries on Playground, e.g.:
+- [ ] 1. In `src/schema.js`, replace all the `fetch` functions in all the Query resolvers with the corresponding function from the `services` object in the context. You'll know that it works because all the queries will return ids like this `5e93558ae06e3d37d8f3705f` instead of `dis:421`. You can test it by running the `trainings`, `training`, `discount`, and queries on Playground, e.g.:
 
 ```graphql
 query {
@@ -51,6 +51,7 @@ query {
   }
 }
 ```
+Don't query `discounts`, it doesn't work yet. That's what we are going to implement in the next task.
 
 #### 🏋️‍♀️ Bonus exercise part 1
 
