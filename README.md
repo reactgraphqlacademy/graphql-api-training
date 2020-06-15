@@ -28,7 +28,7 @@ More on our [teaching method](https://reactgraphql.academy/blog/react-graphql-ac
 Given the following [GraphQL API](https://us-central1-rga-mocked-apis.cloudfunctions.net/graphql):
 
 - Query a list with all the training and retrieve the title and language for each
-- Query a single discount by id (try id equals `dis:422`) and get its name
+- Query a single discount by id (try id equals `dis:422`) and get its code
 - Query how many languages are in the system?
 - How many types do we have in the system?
 
