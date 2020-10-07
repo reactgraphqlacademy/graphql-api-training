@@ -165,7 +165,7 @@ const resolvers = {
     //...
   },
   Training: {
-    upperCaseTitle: (parent) {
+    upperCaseTitle: (parent) => {
       return parent.title.toUpperCase()
     }
   }
