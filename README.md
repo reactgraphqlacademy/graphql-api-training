@@ -186,7 +186,7 @@ const schema = gql`
 `;
 const resolvers = {
   Query: {
-    author(parent, args) {
+    author: (parent, args) => {
       console.log(args); // { id: 3 } based on the query below
     },
   },
