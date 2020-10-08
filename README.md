@@ -46,8 +46,13 @@ More on our [teaching method](https://reactgraphql.academy/blog/react-graphql-ac
 
 ```graphql
 query {
-  discounts {
-    id
+  trainings {
+    edges {
+      node {
+        id
+        title
+      }
+    }
   }
 }
 ```
