@@ -179,7 +179,7 @@ Update the schema so the following queries work:
 ```graphql
 query future {
   trainings(
-    filter: { startDate: future }
+    filter: { startDate: past }
     orderBy: { field: title, direction: DESC }
   ) {
     totalCount
@@ -203,7 +203,7 @@ query past {
     edges {
       node {
         id
-        code
+        title
       }
     }
   }
